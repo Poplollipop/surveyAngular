@@ -1,0 +1,92 @@
+.member-center {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  row-gap: 10px;
+}
+
+.member-icon {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.file-upload {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.info-section {
+  margin-bottom: 20px;
+}
+
+.info-label {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+  font-size: 18px;
+
+}
+
+.info-label p {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.info-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.member-data span {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f4f4f4;
+}
+
+.edit-column{
+  width: 30px;
+}
+
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+

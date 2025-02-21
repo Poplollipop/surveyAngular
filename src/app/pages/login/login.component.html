@@ -1,0 +1,75 @@
+<img src="login-background.jpg" class="background">
+
+<div class="container">
+  @if(isLoginForm){
+  <div class="login-form">
+    <h2>登入</h2>
+    <img src="members-icon.png" class="member-icon">
+    <div class="input-area">
+
+      <mat-form-field>
+        <mat-icon matPrefix>account_circle</mat-icon>
+        <input matInput [(ngModel)]="userAccount" placeholder="帳號" type="text">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input matInput [(ngModel)]="userPassword" placeholder="密碼" type="password">
+      </mat-form-field>
+
+      <div class="btn">
+        <button mat-stroked-button (click)="backToHomepage()">返回首頁</button>
+        <button mat-flat-button (click)="login()">登入</button>
+      </div>
+      <div class="switch-content">
+        <span>還沒有帳號？</span><a (click)="toLoginForm()">註冊</a>
+      </div>
+    </div>
+  </div>
+  }
+  @if(!isLoginForm){
+  <div class="register-form">
+    <h2>註冊帳號</h2>
+    <img src="register-icon.png" class="register-icon">
+    <div class="input-area">
+
+      <mat-form-field>
+        <mat-icon matPrefix>account_circle</mat-icon>
+        <input [(ngModel)]="registerAccount" matInput placeholder="請輸入帳號" type="text">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-icon matPrefix>lock</mat-icon>
+        <input [(ngModel)]="registerPassword" matInput placeholder="請輸入密碼" type="password">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-icon matPrefix>mail</mat-icon>
+        <input [(ngModel)]="registerEmail" matInput placeholder="請輸入信箱" type="mail">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-icon matPrefix>phone</mat-icon>
+        <input [(ngModel)]="registerPhone" matInput placeholder="請輸入電話" type="text">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-icon matPrefix>person</mat-icon>
+        <mat-label>請選擇年紀</mat-label>
+        <mat-select [(ngModel)]="registerAge">
+          @for (age of ages; track $index) {
+          <mat-option [value]="age">{{ age }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <div class="btn">
+        <button mat-stroked-button (click)="backToHomepage()">返回首頁</button>
+        <button mat-flat-button (click)="register()">註冊</button>
+      </div>
+      <div class="switch-content">
+        <span>已有帳號？</span><a (click)="toLoginForm()">登入</a>
+      </div>
+    </div>
+  </div>
+  }
+</div>

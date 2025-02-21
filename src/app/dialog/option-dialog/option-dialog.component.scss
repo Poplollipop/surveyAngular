@@ -1,0 +1,73 @@
+// 問題區域
+.question-section {
+  margin-bottom: 20px;
+}
+
+.question-section label {
+  font-size: 16px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.type-btn {
+  margin-bottom: 20px;
+}
+
+.type-label {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.type-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.type-btn-item {
+  flex: 1;
+}
+
+.required-checkbox {
+  margin-top: 10px;
+}
+
+// 選項區域
+
+.options-content {
+  margin-bottom: 20px;
+}
+
+.options-content p {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.options-list {
+  list-style-type: decimal;
+  padding-left: 20px;
+}
+
+.options-list li {
+  margin-bottom: 10px;
+}
+
+.options-add{
+  display: inline-flex;
+  align-items: center;
+}
+
+.text-description{
+  width: 50%;
+  height: 10vh;
+}
+
+
+.submit-btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.submit-btn button {
+  padding: 10px 20px;
+}

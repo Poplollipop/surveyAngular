@@ -1,0 +1,173 @@
+<mat-tab-group [(selectedIndex)]="selectedIndex" mat-stretch-tabs="false" mat-align-tabs="center">
+
+  <!-- 問卷起始 -->
+  <mat-tab disabled  label="問卷">
+    <div class="tab-container">
+      <div class="content">
+        <!-- 問卷名稱 -->
+        <span>問卷名稱：</span>
+        <input [(ngModel)]="surveyName" type="text">
+
+        <!-- 問卷說明 -->
+        <span>問卷說明：</span>
+        <textarea [(ngModel)]="surveyDescription"></textarea>
+
+        <!-- 問卷起始時間 -->
+        <span>開始時間：</span>
+        <mat-form-field class="time-field">
+          <mat-label>選擇起始時間</mat-label>
+          <input readonly matInput [matDatepicker]="startDate" [min]="today"
+            (dateChange)="startDate_change($event)" />
+          <mat-hint>年/月/日</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>取消</button>
+              <button mat-raised-button matDatepickerApply>選擇</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+
+        <!-- 問卷結束時間 -->
+        <span>結束時間：</span>
+        <mat-form-field class="time-field">
+          <mat-label>選擇結束時間</mat-label>
+          <input readonly matInput [matDatepicker]="endDate" [min]="endDateMin" (dateChange)="endDate_change($event)" />
+          <mat-hint>年/月/日</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>取消</button>
+              <button mat-raised-button matDatepickerApply>選擇</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+        <div class="error">
+          @if(endDateError){
+          結束時間不得小於開始時間
+          }
+        </div>
+      </div>
+      <div class="btn">
+        <button mat-button (click)="backtohomepage()">取消</button>
+        <button mat-raised-button [disabled]="endDateError" (click)="nextStep()">下一步</button>
+      </div>
+    </div>
+  </mat-tab>
+
+  <!-- 題目 -->
+  <mat-tab disabled label="題目">
+    <div class="tab-container">
+      <div class="content">
+
+        <!-- 新增問卷問題 -->
+        <button class="option-btn" mat-stroked-button (click)="showDialog()">新增問題及選項</button>
+      </div>
+
+      <button matTooltip="刪除問題" mat-icon-button class="button">
+        <mat-icon>delete</mat-icon>
+      </button>
+
+      <!-- 問卷題目列表 -->
+      <div class="ques-content">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <!-- Checkbox Column -->
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row">
+              <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef> 編號 </th>
+            <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> 問題名稱 </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          </ng-container>
+
+          <!-- Type Column -->
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef> 類型 </th>
+            <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+          </ng-container>
+
+          <!-- Must Column -->
+          <ng-container matColumnDef="must">
+            <th mat-header-cell *matHeaderCellDef> 必填 </th>
+            <td mat-cell *matCellDef="let element"> {{element.must}} </td>
+          </ng-container>
+
+          <!-- Edit Column -->
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef> 編輯 </th>
+            <td mat-cell *matCellDef="let element">
+              <button matTooltip="編輯" mat-icon-button (click)="$event.stopPropagation()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+          </tr>
+        </table>
+      </div>
+
+      <div class="btn">
+        <button mat-button (click)="backStep()">返回</button>
+        <button mat-raised-button (click)="nextStep()">下一步</button>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="預覽頁" disabled>
+
+    <div class="survey-container">
+      <h6 class="survey-time">問卷時間：{{inputStartDate}} - {{ inputEndDate }}</h6>
+      <h2 class="survey-title">{{ surveyName }}</h2>
+      <div class="survey-description">
+        <h5>問卷說明：</h5>
+        <span>{{ surveyDescription }}</span>
+      </div>
+    </div>
+
+    <div class="tab-container">
+      <div class="content">
+        <div class="input-group">
+          <label for="name">名字：</label>
+          <input disabled="" id="name" type="text" placeholder="請輸入姓名">
+        </div>
+
+        <div class="input-group">
+          <label for="phone">手機：</label>
+          <input disabled="" id="phone" type="text" placeholder="請輸入手機">
+        </div>
+
+        <div class="input-group">
+          <label for="email">信箱：</label>
+          <input disabled="" id="email" type="text" placeholder="請輸入信箱">
+        </div>
+
+        <div class="input-group">
+          <label for="age">年紀：</label>
+          <input disabled="" id="age" type="text" placeholder="請輸入年紀">
+        </div>
+
+      </div>
+      <div class="btn">
+        <button mat-button (click)="backStep()">返回</button>
+        <button mat-raised-button>僅儲存</button>
+        <button mat-flat-button>儲存並發布</button>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>新增問題及選項 （{{ type }}）</h2>
+<mat-dialog-content>
+
+  <!-- 問卷問題 -->
+  <div class="question-section">
+    <label for="question">問題：</label>
+    <input [(ngModel)]="quizName" type="text" placeholder="請輸入問題" matInput>
+  </div>
+
+  <!-- 問題類型 -->
+  <div class="type-btn">
+    <p class="type-label">問題類型：</p>
+    <div class="type-buttons">
+      <button mat-flat-button class="type-btn-item" (click)="setSingle()">單選題</button>
+      <button mat-flat-button class="type-btn-item" (click)="setMulti()">多選題</button>
+      <button mat-flat-button class="type-btn-item" (click)="setText()">簡答題</button>
+    </div>
+    <div class="required-checkbox">
+      <label>
+        <input [(ngModel)]="quizMust" type="checkbox"> 必填
+      </label>
+    </div>
+  </div>
+
+  <!-- 問題選項 -->
+  <div class="options-content">
+    @if(quizType == 'single' || quizType == 'multi'){
+    <div class="options-add">
+      <p>選項：</p>
+      <button matTooltip="新增選項" mat-icon-button (click)="addOptions()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  }
+    <ol class="options-list">
+      @if (quizType == 'single' || quizType == 'multi') {
+      @for (option of options; track $index) {
+      <li>
+        <input placeholder="請輸入選項" [(ngModel)]="options[$index]" type="text" matInput>
+        <button matTooltip="刪除選項" (click)="deleteOptions($index)" mat-icon-button>
+          <mat-icon>remove</mat-icon>
+        </button>
+      </li>
+      }
+      }
+    </ol>
+    @if(quizType == 'text'){
+    <input class="text-description" [(ngModel)]="answerText" type="text" placeholder="請輸入問題說明" matInput>
+    }
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- 按鈕區域 -->
+  <div class="submit-btn">
+    <button mat-button (click)="cancel()">取消</button>
+    <button mat-stroked-button (click)="save()">確定</button>
+  </div>
+</mat-dialog-actions>

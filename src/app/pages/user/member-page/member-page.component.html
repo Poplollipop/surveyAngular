@@ -1,0 +1,64 @@
+<div class="member-center">
+  <div class="profile-section">
+    <img class="member-icon" src="blank-profile-picture.png" alt="Profile Picture">
+    <div class="upload-content">
+      <input type="file" class="file-upload" (change)="fileChange($event)" />
+      <button mat-raised-button (click)="convert()">上傳</button>
+    </div>
+  </div>
+
+  <div class="info-section">
+    <div class="member-data">
+      <div>
+      <span>會員資料</span>
+        <button matTooltip="修改資料" (click)="showDialog()" mat-icon-button class="button">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+      <table>
+        <tr>
+          <th>帳號</th>
+          <td>example</td>
+        </tr>
+
+        <tr>
+          <th>密碼</th>
+          <td>12345</td>
+        </tr>
+
+        <tr>
+          <th>電子信箱</th>
+          <td>example&#64;yahoo.com</td>
+        </tr>
+        <tr>
+          <th>電話</th>
+          <td>0912345678</td>
+        </tr>
+        <tr>
+          <th>年紀</th>
+          <td>25</td>
+        </tr>
+      </table>
+
+    </div>
+
+    <p class="info-label">填寫紀錄</p>
+    <table>
+      <tr>
+        <th>問卷名稱</th>
+        <th>回覆結果</th>
+      </tr>
+      <tr>
+        <td>範例問卷</td>
+        <td>結果</td>
+      </tr>
+    </table>
+  </div>
+
+
+
+  <div class="buttons">
+    <button mat-stroked-button class="cancel-btn" (click)="backHomepage()">返回首頁</button>
+    <button mat-flat-button class="update-btn">確認修改</button>
+  </div>
+</div>

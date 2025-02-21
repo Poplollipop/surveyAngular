@@ -1,0 +1,46 @@
+.mat-toolbar{
+  background-color: #ecdcc2;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.title{
+  margin-left: 5%;
+}
+
+.drawer-container {
+  height: 90vh; /* 讓容器填滿整個視窗 */
+}
+
+.sidenav {
+  background-color: antiquewhite;
+  width: 250px;
+}
+
+.sidenav-header {
+  background-color: antiquewhite;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 16px;
+}
+
+.sidenav-footer {
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+mat-list-item {
+  display: flex;
+  align-items: center;
+}
+
+mat-icon {
+  margin-right: 8px;
+}
+
+.close-sidenav-icon{
+  margin-left: 70px;
+}

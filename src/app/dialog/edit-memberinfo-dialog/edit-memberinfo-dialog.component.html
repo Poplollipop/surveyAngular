@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>修改資料</h2>
+<mat-dialog-content>
+  <div class="account-area">
+    <span>舊帳號：</span>
+    <input type="text" disabled placeholder="example"><br>
+    <span>新帳號：</span>
+    <input type="text" [(ngModel)]="newAccount" placeholder="新帳號">
+  </div>
+  <div class="password-area">
+    <span>舊密碼：</span>
+    <input type="text" disabled placeholder="example"><br>
+    <span>新密碼：</span>
+    <input type="text" [(ngModel)]="newPassword" placeholder="新密碼">
+  </div>
+
+  <div class="mail-area">
+    <span>舊信箱：</span>
+    <input type="text" disabled placeholder="example@yahoo.com"><br>
+    <span>新信箱：</span>
+    <input type="text" [(ngModel)]="newMail" placeholder="新信箱">
+  </div>
+
+  <div class="phone-area">
+    <span>舊電話號碼：</span>
+    <input type="text" disabled placeholder="0912345678"><br>
+    <span>新電話號碼：</span>
+    <input type="text" [(ngModel)]="newPhone" placeholder="新電話">
+  </div>
+
+</mat-dialog-content>

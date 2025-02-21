@@ -1,0 +1,96 @@
+.background {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 50%;
+  min-width: 400px;
+  margin-top: 5%;
+  position: relative;
+}
+
+.login-form,
+.register-form {
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  font-family: 'Roboto', sans-serif; // 現代字體
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.member-icon,
+.register-icon {
+  height: 80px;
+  width: 80px;
+  margin-bottom: 20px;
+}
+
+.register-icon {
+  height: 120px;
+  width: 120px;
+}
+
+.input-area {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.input-area button {
+  margin: 0 auto;
+  margin-top: 5%;
+  width: 50%;
+}
+
+.mat-icon {
+  margin-bottom: -4px;
+}
+
+.function-content {
+  display: flex;
+  gap: 30px;
+}
+
+.switch-content{
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.switch-content span {
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+}
+
+.switch-content a {
+  cursor: pointer; /* 設定游標為指標 */
+  color: black; /* 確保文字顏色為黑色 */
+  text-decoration: none; /* 可選：移除下劃線 */
+}
+
+.switch-content a:hover {
+  text-decoration: underline; /* 可選：滑鼠懸停時顯示下劃線 */
+}

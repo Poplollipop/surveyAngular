@@ -1,0 +1,55 @@
+.table {
+  width: 100vw;
+}
+
+.button-container {
+  padding-bottom: 16px;
+  margin-left: 8%;
+}
+
+.button {
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.table-font{
+  text-align: center;
+}
+
+
+th {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px;
+}
+
+td {
+  font-size: 14px;
+  text-align: center;
+}
+
+::ng-deep {
+  .mat-mdc-table thead {
+    background-color: #DABEA7 !important;
+  }
+}
+
+
+.survey-content{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+
+.survey-content tr:hover {
+  background-color: rgba(224,200,171,0.4); // 整行懸停背景顏色
+}
+
+
+
+mat-paginator{
+  border: 2px #9A6852 double;
+  border-radius: 10px;
+}
