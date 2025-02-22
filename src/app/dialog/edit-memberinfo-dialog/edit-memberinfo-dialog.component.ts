@@ -33,9 +33,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   styleUrl: './edit-memberinfo-dialog.component.scss'
 })
 export class EditMemberinfoDialogComponent {
-  newAccount: any;
-  newPassword: any;
-  newMail: any;
-  newPhone: any;
+
+  readonly dialogRef = inject(MatDialogRef<EditMemberinfoDialogComponent>);
+  readonly data = inject<any>(MAT_DIALOG_DATA);
+
+  // 會員資料修正
+  newAccount!: string;
+  newPassword!: string;
+  newMail!: string;
+  newPhone!: string;
+  newMemberInfo: string[] = []
+
+  save() {
+    this.newMemberInfo = [this.newAccount, this.newPassword, this.newMail, this.newPhone];
+    console.log(this.newMemberInfo);
+    this.dialogRef.close();
+  }
+  cancel() {
+    this.dialogRef.close();
+  }
+
 
 }

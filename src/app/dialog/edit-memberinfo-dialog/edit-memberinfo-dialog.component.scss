@@ -1,0 +1,54 @@
+mat-dialog-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.field input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.field input:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+}
+
+mat-dialog-actions {
+  padding: 20px;
+  display: flex;
+  justify-content: end;
+}
+
+

@@ -119,8 +119,16 @@ export class OptionDialogComponent {
         return;
       }
     }
-
-    this.dialogRef.close();
+    const option = {
+      quizName: this.quizName,
+      quizMust: this.quizMust,
+      quizType: this.quizType,
+      type: this.type,
+      options: this.options,
+      answerText: this.answerText,
+    }
+    this.dialogRef.close(option);
+    console.log(option);
   }
 
   cancel() {

@@ -1,30 +1,48 @@
-<h2 mat-dialog-title>修改資料</h2>
+<h2 mat-dialog-title>修改會員資料</h2>
 <mat-dialog-content>
-  <div class="account-area">
-    <span>舊帳號：</span>
-    <input type="text" disabled placeholder="example"><br>
-    <span>新帳號：</span>
-    <input type="text" [(ngModel)]="newAccount" placeholder="新帳號">
-  </div>
-  <div class="password-area">
-    <span>舊密碼：</span>
-    <input type="text" disabled placeholder="example"><br>
-    <span>新密碼：</span>
-    <input type="text" [(ngModel)]="newPassword" placeholder="新密碼">
-  </div>
+  <div class="input-area">
+    <div class="field">
+      <label>舊帳號：</label>
+      <input type="text" disabled placeholder="example">
+    </div>
+    <div class="field">
+      <label>新帳號：</label>
+      <input type="text" [(ngModel)]="newAccount" placeholder="新帳號">
+    </div>
 
-  <div class="mail-area">
-    <span>舊信箱：</span>
-    <input type="text" disabled placeholder="example@yahoo.com"><br>
-    <span>新信箱：</span>
-    <input type="text" [(ngModel)]="newMail" placeholder="新信箱">
-  </div>
+    <div class="field">
+      <label>舊密碼：</label>
+      <input type="text" disabled placeholder="example">
+    </div>
+    <div class="field">
+      <label>新密碼：</label>
+      <input type="text" [(ngModel)]="newPassword" placeholder="新密碼">
+    </div>
 
-  <div class="phone-area">
-    <span>舊電話號碼：</span>
-    <input type="text" disabled placeholder="0912345678"><br>
-    <span>新電話號碼：</span>
-    <input type="text" [(ngModel)]="newPhone" placeholder="新電話">
-  </div>
+    <div class="field">
+      <label>舊信箱：</label>
+      <input type="text" disabled placeholder="example@yahoo.com">
+    </div>
+    <div class="field">
+      <label>新信箱：</label>
+      <input type="text" [(ngModel)]="newMail" placeholder="新信箱">
+    </div>
 
+    <div class="field">
+      <label>舊電話號碼：</label>
+      <input type="text" disabled placeholder="0912345678">
+    </div>
+    <div class="field">
+      <label>新電話號碼：</label>
+      <input type="text" [(ngModel)]="newPhone" placeholder="新電話">
+    </div>
+  </div>
 </mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- 按鈕區域 -->
+  <div>
+    <button mat-button (click)="cancel()">取消</button>
+    <button mat-stroked-button (click)="save()">確定</button>
+  </div>
+</mat-dialog-actions>
