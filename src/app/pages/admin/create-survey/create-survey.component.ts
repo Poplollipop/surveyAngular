@@ -24,18 +24,6 @@ export interface PeriodicElement {
   must: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { "position": 1, "name": "喜歡的歌手", "type": "多選題", "must": "否" },
-  { "position": 2, "name": "最喜歡的顏色", "type": "單選題", "must": "是" },
-  { "position": 3, "name": "你最喜歡的季節", "type": "單選題", "must": "否" },
-  { "position": 4, "name": "常聽的音樂類型", "type": "多選題", "must": "是" },
-  { "position": 5, "name": "你喜歡的電影類型", "type": "多選題", "must": "否" },
-  { "position": 6, "name": "理想的旅遊地點", "type": "簡答題", "must": "否" },
-];
-
-/**
- * @title Table with selection
- */
 
 
 @Component({
@@ -154,6 +142,7 @@ export class CreateSurveyComponent {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
     })
+
   }
 
   // checkbox標籤
@@ -166,7 +155,7 @@ export class CreateSurveyComponent {
 
 
   displayedColumns: string[] = ['select', 'position', 'name', 'type', 'must', 'edit'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource<PeriodicElement>();
   selection = new SelectionModel<PeriodicElement>(true, []);
 
 
