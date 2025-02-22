@@ -19,7 +19,7 @@ import { OptionDialogComponent } from '../../../dialog/option-dialog/option-dial
 
 export interface PeriodicElement {
   name: string;
-  position: number;
+  questionId: number;
   type: string;
   must: string;
 }
@@ -55,6 +55,8 @@ export class CreateSurveyComponent {
     private dateservice: DateService,
   ) { }
 
+  /* 第一個tab變數 */
+
   startDate: Date | null = null;
   today: Date = new Date();
   endDate: Date | null = null;
@@ -62,11 +64,15 @@ export class CreateSurveyComponent {
   inputStartDate: any;
   inputEndDate: any;
 
+  /* 第二個tab變數 */
+  questionArray: any[] = []
+
   ngOnInit(): void {
 
   }
 
 
+  /* 第一個tab邏輯 */
 
 
   // 處理開始時間更改
@@ -91,9 +97,12 @@ export class CreateSurveyComponent {
 
   //返回首頁
   backtohomepage() {
-    alert('確定返回主頁面？離開後將不會保存任何目前已填寫的資料！')
+    // alert('確定返回主頁面？離開後將不會保存任何目前已填寫的資料！')
     this.router.navigateByUrl('/homepage')
   }
+
+  /* tab共用邏輯 */
+
 
   // 進入下一個Tab按鈕的處理方法
   nextStep() {
@@ -129,6 +138,8 @@ export class CreateSurveyComponent {
     }
   }
 
+  /* 第二個tab邏輯 */
+
   // 顯示新增問題及選項對話框
   readonly dialog = inject(MatDialog);
 
@@ -150,11 +161,11 @@ export class CreateSurveyComponent {
     if (!row) {
       return 'select/deselect row';
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.questionId + 1}`;
   }
 
 
-  displayedColumns: string[] = ['select', 'position', 'name', 'type', 'must', 'edit'];
+  displayedColumns: string[] = ['select', 'questionId', 'name', 'type', 'must', 'edit'];
   dataSource = new MatTableDataSource<PeriodicElement>();
   selection = new SelectionModel<PeriodicElement>(true, []);
 
