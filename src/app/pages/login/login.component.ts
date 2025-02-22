@@ -75,14 +75,14 @@ export class LoginComponent {
   }
 
   register() {
-    const registerData = [
+    this.registerData = [
       this.registerAccount,
       this.registerPassword,
       this.registerEmail,
       this.registerPhone,
       this.registerAge,
     ];
-    console.log(registerData);
+    console.log(this.registerData);
   }
 
   login() {

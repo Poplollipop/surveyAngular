@@ -24,7 +24,8 @@ export class SearchComponent {
   hoveredDate: NgbDate | null = null;
   fromDate: NgbDate | null = this.calendar.getToday();
   toDate: NgbDate | null = this.calendar.getNext(this.calendar.getToday(), 'd', 1);
-name: any;
+  surveyName!: string;
+  searchData: any[] = []
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
@@ -60,4 +61,13 @@ name: any;
     const parsed = this.formatter.parse(input);
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
   }
+
+  search() {
+    this.searchData = [
+      this.surveyName,
+      // this.fromDate,
+      // this.toDate,
+    ]
+  }
+
 }
