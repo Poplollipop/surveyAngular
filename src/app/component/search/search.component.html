@@ -1,7 +1,7 @@
 <div class="container">
  <div class="name-search">
   <span>問卷名稱：</span>
-  <input [(ngModel)]="name" class="name-input" type="text">
+  <input [(ngModel)]="surveyName" class="name-input" type="text">
  </div>
  <div class="date-search">
   <span class="date-content">統計時間：</span>
@@ -69,7 +69,7 @@
       </div>
     </div>
   </form>
-  <button class="search-btn" matTooltip="搜尋" mat-icon-button>
+  <button class="search-btn" matTooltip="搜尋" mat-icon-button (click)="search()">
     <mat-icon>search</mat-icon>
   </button>
  </div>

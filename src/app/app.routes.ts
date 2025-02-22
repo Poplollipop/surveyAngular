@@ -7,6 +7,7 @@ import { SurveyPageComponent } from './pages/user/survey-page/survey-page.compon
 import { AdminHomepageComponent } from './pages/admin/admin-homepage/admin-homepage.component';
 import { NotFoundComponent } from './pages/notfound/not-found/not-found.component';
 import { StatisticsComponent } from './pages/admin/statistics/statistics.component';
+// import { SearchComponent } from './component/search/search.component';
 
 export const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
@@ -17,5 +18,7 @@ export const routes: Routes = [
   { path: 'create-survey', component: CreateSurveyComponent },
   { path: 'survey-page', component: SurveyPageComponent },
   { path: 'member-page', component: MemberPageComponent },
+    // 測試組件區域
+    // { path: 'search', component: SearchComponent },
   { path: '**', component: NotFoundComponent },
 ];

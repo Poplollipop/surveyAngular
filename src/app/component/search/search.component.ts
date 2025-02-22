@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,12 +20,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class SearchComponent {
   calendar: NgbCalendar = inject(NgbCalendar);
   formatter: NgbDateParserFormatter = inject(NgbDateParserFormatter);
+  searchOutput = output<any>();
 
   hoveredDate: NgbDate | null = null;
   fromDate: NgbDate | null = this.calendar.getToday();
   toDate: NgbDate | null = this.calendar.getNext(this.calendar.getToday(), 'd', 1);
-name: any;
+  surveyName!: string;
 
+  // bootstrap datepicker 邏輯
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {
       this.fromDate = date;
@@ -60,4 +62,16 @@ name: any;
     const parsed = this.formatter.parse(input);
     return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
   }
+
+  // output 搜尋條件
+  search() {
+    const searchFiliter = {
+      startDate: this.fromDate,
+      endDate: this.toDate,
+      surveyName: this.surveyName,
+    };
+    // console.log(searchFiliter);
+    this.searchOutput.emit(searchFiliter);
+  }
+
 }
