@@ -65,7 +65,7 @@ export class HomepageComponent {
       startDate: startDate,
       endDate: endDate,
     }
-    console.log(endDate);
+    console.log(searchData);
   }
 
 

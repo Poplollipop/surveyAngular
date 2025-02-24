@@ -1,4 +1,11 @@
-<h2 mat-dialog-title>新增問題及選項 （{{ type }}）</h2>
+<h2 mat-dialog-title [ngClass]="{ 'edit-status': editStatus }">
+  {{ editStatus ? '編輯問題及選項' : '新增問題及選項' }} （{{ type }}）
+</h2>
+  @if(editStatus){
+  <div class="edit-info">
+   編輯中！
+  </div>
+}
 <mat-dialog-content>
 
   <!-- 問卷問題 -->
@@ -45,7 +52,7 @@
       }
     </ol>
     @if(quizType == 'text'){
-    <input class="text-description" [(ngModel)]="answerText" type="text" placeholder="請輸入問題說明" matInput>
+    <input disabled class="text-description" type="text" placeholder="作答區域" matInput>
     }
   </div>
 </mat-dialog-content>

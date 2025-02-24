@@ -13,7 +13,8 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> 名稱 </th>
-      <td mat-cell *matCellDef="let element"><a href="survey-page"> {{element.name}}</a> </td>
+      <td mat-cell *matCellDef="let element"><a [routerLink]="['/survey-page']">{{element.name}}</a>
+      </td>
     </ng-container>
 
     <!-- status Column -->

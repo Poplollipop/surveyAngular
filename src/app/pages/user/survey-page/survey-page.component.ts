@@ -26,7 +26,7 @@ export class SurveyPageComponent {
     // 訂閱登入狀態
     this.loginservice.login$.subscribe(status => {
       this.userStatus = status;
-      console.log(this.userStatus);
+      // console.log(this.userStatus);
     });
   }
 

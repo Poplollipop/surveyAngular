@@ -61,7 +61,7 @@
       <div class="content">
 
         <!-- 新增問卷問題 -->
-        <button class="option-btn" mat-stroked-button (click)="showDialog()">新增問題及選項</button>
+        <button class="option-btn" mat-stroked-button (click)="showAddQuizDialog()">新增問題及選項</button>
       </div>
 
       <button matTooltip="刪除問題" mat-icon-button class="button">
@@ -83,16 +83,16 @@
           </ng-container>
 
 
-          <!-- QuestionId Column -->
-          <ng-container matColumnDef="questionId">
+          <!-- QuizId Column -->
+          <ng-container matColumnDef="quizId">
             <th mat-header-cell *matHeaderCellDef> 編號 </th>
-            <td mat-cell *matCellDef="let element"> {{element.questionId}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.quizId}} </td>
           </ng-container>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="name">
+          <!-- quizName Column -->
+          <ng-container matColumnDef="quizName">
             <th mat-header-cell *matHeaderCellDef> 問題名稱 </th>
-            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.quizName}} </td>
           </ng-container>
 
           <!-- Type Column -->
@@ -101,17 +101,17 @@
             <td mat-cell *matCellDef="let element"> {{element.type}} </td>
           </ng-container>
 
-          <!-- Must Column -->
-          <ng-container matColumnDef="must">
+          <!-- quizMust Column -->
+          <ng-container matColumnDef="quizMust">
             <th mat-header-cell *matHeaderCellDef> 必填 </th>
-            <td mat-cell *matCellDef="let element"> {{element.must}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.quizMust ? '是' : '否'}} </td>
           </ng-container>
 
           <!-- Edit Column -->
           <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef> 編輯 </th>
             <td mat-cell *matCellDef="let element">
-              <button matTooltip="編輯" mat-icon-button (click)="$event.stopPropagation()">
+              <button matTooltip="編輯" mat-icon-button (click)="showEditQuizDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>
             </td>

@@ -15,10 +15,12 @@ import {
 } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-option-dialog',
   imports: [
+    CommonModule,
     FormsModule,
     MatButtonModule,
     MatDialogTitle,
@@ -34,20 +36,42 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 })
 export class OptionDialogComponent {
 
-
+  // 設定初始值
+  quizId: number = 0;
   options: string[] = ["", ""];
-  quizMust!: boolean;
+  quizMust: boolean = false;
   quizType: string = 'single';
   type: string = '單選題';
-  answerText!: string;
+  answerText: boolean = false;
   quizName!: string;
+  editStatus: boolean = false;
+
 
 
   readonly dialogRef = inject(MatDialogRef<OptionDialogComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
 
 
+  constructor() {
 
+  }
+
+  ngOnInit(): void {
+    // 初始化 data 檢視是否為編輯，如為編輯問題及選項，將值帶入
+    if (this.data) {
+      this.quizId = this.data.quizId || 0;
+      this.quizName = this.data.quizName || '';
+      this.quizMust = this.data.quizMust || false;
+      this.quizType = this.data.quizType || 'single';
+      this.type = this.data.type || '單選題';
+      this.options = this.data.options || ["", ""];
+      this.answerText = this.data.answerText || false;
+      if(this.data.quizId){
+        this.editStatus = true;
+      }
+      // console.log(this.data);
+    }
+  }
 
   // 變更問題類型為單選題
   setSingle() {
@@ -68,6 +92,7 @@ export class OptionDialogComponent {
     this.quizType = 'text';
     this.type = '簡答題'
     this.options = [];
+    this.answerText = true;
   }
 
 
@@ -87,6 +112,7 @@ export class OptionDialogComponent {
   }
 
   save() {
+
     // 檢查問題名稱是否空白
     if (!this.quizName || !this.quizName.trim()) {
       alert("請填寫問題名稱！");
@@ -100,11 +126,6 @@ export class OptionDialogComponent {
       return;
     }
 
-    // 簡答題，檢查問題是否有輸入
-    if (this.quizType == 'text' && !this.answerText) {
-      alert("請輸入問題說明！");
-      return;
-    }
 
     // 單選題或多選題，檢查選項是否小於兩個選項
     if ((this.quizType == 'single' || this.quizType == 'multi') && this.options.length < 2) {
@@ -113,10 +134,12 @@ export class OptionDialogComponent {
     }
 
     // 檢查每個選項是否為空
-    for (let option of this.options) {
-      if (!option.trim()) {
-        alert("選項不能為空！");
-        return;
+    if (this.quizType !== 'text') {
+      for (let option of this.options) {
+        if (!option.trim()) {
+          alert("選項不能為空！");
+          return;
+        }
       }
     }
     const option = {
@@ -128,8 +151,9 @@ export class OptionDialogComponent {
       answerText: this.answerText,
     }
     this.dialogRef.close(option);
-    console.log(option);
+    // console.log(option);
   }
+
 
   cancel() {
     this.dialogRef.close();

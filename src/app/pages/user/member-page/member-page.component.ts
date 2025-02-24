@@ -34,7 +34,7 @@ showDialog() {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      // console.log(result);
     })
   }
 
@@ -54,7 +54,7 @@ showDialog() {
     const reader = new FileReader();
     reader.onload = () => {
       this.img = reader.result as string;
-      console.log(this.img);
+      // console.log(this.img);
     }
     reader.readAsDataURL(this.file);
   }

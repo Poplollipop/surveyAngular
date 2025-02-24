@@ -1,3 +1,4 @@
+import { DateService } from './../../../@service/date.service';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
@@ -34,9 +35,35 @@ export class AdminHomepageComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+    // 更改 Angular paginator 語言
+    constructor(
+      private paginatorInt: MatPaginatorIntl,
+      private loginservice: LoginService,
+      private dateservice:DateService,
+    ) {
+      {
+        paginatorInt.itemsPerPageLabel = "每頁顯示資料數";
+        paginatorInt.nextPageLabel = "下一頁";
+        paginatorInt.previousPageLabel = "上一頁";
+        paginatorInt.lastPageLabel = "到最後一頁";
+        paginatorInt.firstPageLabel = "到第一頁";
+        paginatorInt.getRangeLabel = (page: number, pageSize: number, length: number) => {
+          length = Math.max(length, 0);
+          const startIndex = page * pageSize;
+          const endIndex =
+            startIndex < length
+              ? Math.min(startIndex + pageSize, length)
+              : startIndex + pageSize;
+          return `${endIndex} / ${length}`; // ${startIndex + 1} 的
+        }
+      }
+    }
+
   ngOnInit(): void {
     // 訂閱登入狀態
     this.loginservice.login$.subscribe(status => {
+      // console.log(status);
+
       this.adminStatus = status;
     });
     // console.log(this.adminStatus);
@@ -50,30 +77,17 @@ export class AdminHomepageComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  // 更改 Angular paginator 語言
-  constructor(
-    private paginatorInt: MatPaginatorIntl,
-    private loginservice: LoginService,
-  ) {
-    {
-      paginatorInt.itemsPerPageLabel = "每頁顯示資料數";
-      paginatorInt.nextPageLabel = "下一頁";
-      paginatorInt.previousPageLabel = "上一頁";
-      paginatorInt.lastPageLabel = "到最後一頁";
-      paginatorInt.firstPageLabel = "到第一頁";
-      paginatorInt.getRangeLabel = (page: number, pageSize: number, length: number) => {
-        length = Math.max(length, 0);
-        const startIndex = page * pageSize;
-        const endIndex =
-          startIndex < length
-            ? Math.min(startIndex + pageSize, length)
-            : startIndex + pageSize;
-        return `${endIndex} / ${length}`; // ${startIndex + 1} 的
-      }
+   // 搜尋條件更改
+   changeData(event: any) {
+    const startDate = this.dateservice.changeDataFormat(new Date(event.startDate.year, event.startDate.month - 1, event.startDate.day));
+    const endDate = this.dateservice.changeDataFormat(new Date(event.endDate.year, event.endDate.month - 1, event.endDate.day));
+    const searchData = {
+      surveyName: event.surveyName,
+      startDate: startDate,
+      endDate: endDate,
     }
+    console.log(searchData);
   }
-
-
 
 
 }

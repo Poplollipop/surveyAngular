@@ -17,11 +17,14 @@ import { FormsModule } from '@angular/forms';
 import { OptionDialogComponent } from '../../../dialog/option-dialog/option-dialog.component';
 
 
-export interface PeriodicElement {
-  name: string;
-  questionId: number;
+export interface QuizData {
+  options: any[];
+  answerText: any;
+  quizName: string;
+  quizId: number;
   type: string;
-  must: string;
+  quizMust: string;
+  quizType: string;
 }
 
 
@@ -45,6 +48,7 @@ export interface PeriodicElement {
   styleUrl: './create-survey.component.scss'
 })
 export class CreateSurveyComponent {
+
   selectedIndex = 0;
   surveyName!: string;
   surveyDescription!: string;
@@ -65,7 +69,9 @@ export class CreateSurveyComponent {
   inputEndDate: any;
 
   /* 第二個tab變數 */
-  questionArray: any[] = []
+  quizId: number = 0;
+  editId: number = 0;
+  editStatus: boolean = false;
 
   ngOnInit(): void {
 
@@ -106,19 +112,19 @@ export class CreateSurveyComponent {
 
   // 進入下一個Tab按鈕的處理方法
   nextStep() {
-    if(!this.surveyName){
+    if (!this.surveyName) {
       alert('問卷名稱不得為空！')
       return
     }
-    if(!this.surveyDescription){
+    if (!this.surveyDescription) {
       alert('問卷說明不得為空！')
       return
     }
-    if(!this.startDate){
+    if (!this.startDate) {
       alert('開始時間不得為空！')
       return
     }
-    if(!this.endDate){
+    if (!this.endDate) {
       alert('結束時間不得為空！')
       return
     }
@@ -144,30 +150,81 @@ export class CreateSurveyComponent {
   readonly dialog = inject(MatDialog);
 
 
-  showDialog() {
+  showAddQuizDialog() {
     const dialogRef = this.dialog.open(OptionDialogComponent, {
       data: {},
       width: '80%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      // console.log(result);
+      if (result) {
+        this.quizId++;
+        const newQuiz: QuizData = {
+          quizId: this.quizId,
+          quizName: result.quizName,
+          type: result.type,
+          quizMust: result.quizMust,
+          options: result.options,
+          answerText: result.answerText,
+          quizType: result.quizType,
+        };
+        // console.log(newQuiz);
+
+        this.dataSource.data.push(newQuiz);
+        this.dataSource._updateChangeSubscription();
+      };
     })
 
   }
 
+  // 編輯問卷問題
+  showEditQuizDialog(element: any) {
+    console.log(element);
+
+    const dialogRef = this.dialog.open(OptionDialogComponent, {
+      width: '80%',
+      data: {
+        quizId: element.quizId,
+        quizName: element.quizName,
+        quizMust: element.quizMust,
+        quizType: element.quizType,
+        type: element.type,
+        options: element.options,
+        answerText: element.answerText,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const updateQuiz: QuizData = {
+          quizId: this.quizId,
+          quizName: result.quizName,
+          type: result.type,
+          quizMust: result.quizMust,
+          options: result.options,
+          answerText: result.answerText,
+          quizType: result.quizType,
+        }
+        console.log(updateQuiz);
+        this.dataSource.data.push(updateQuiz);
+        this.dataSource._updateChangeSubscription();
+        // console.log(result);
+      }
+    });
+  }
+
   // checkbox標籤
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: QuizData): string {
     if (!row) {
       return 'select/deselect row';
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.questionId + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.quizId + 1}`;
   }
 
-
-  displayedColumns: string[] = ['select', 'questionId', 'name', 'type', 'must', 'edit'];
-  dataSource = new MatTableDataSource<PeriodicElement>();
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  displayedColumns: string[] = ['select', 'quizId', 'quizName', 'type', 'quizMust', 'edit'];
+  dataSource = new MatTableDataSource<QuizData>();
+  selection = new SelectionModel<QuizData>(true, []);
 
 
 

@@ -3,21 +3,31 @@
   <button matTooltip="打開導覽欄" mat-icon-button class="toolbar-icon" (click)="drawer.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span class="title">歡迎使用問卷系統！</span>
+  @if(userStatus){
+  <span class="title">後台管理問卷</span>
+  } @else {
+    <span class="title">歡迎使用問卷系統！</span>
+  }
   <span class="spacer"></span>
+  @if(userStatus){
+  <button matTooltip="首頁" mat-icon-button routerLink="/admin-homepage" routerLinkActive="router-link-active">
+    <mat-icon>home</mat-icon>
+  </button>
+  }@else {
   <button matTooltip="首頁" mat-icon-button routerLink="/homepage" routerLinkActive="router-link-active">
     <mat-icon>home</mat-icon>
   </button>
+  }
   @if(!userStatus){
-    <button mat-icon-button (click)="login()" matTooltip="登入">
-      <mat-icon>login</mat-icon>
-    </button>
-    }
-    @if(userStatus){
-    <button mat-icon-button (click)="logout()" matTooltip="登出">
-      <mat-icon>logout</mat-icon>
-    </button>
-    }
+  <button mat-icon-button (click)="login()" matTooltip="登入">
+    <mat-icon>login</mat-icon>
+  </button>
+  }
+  @if(userStatus){
+  <button mat-icon-button (click)="logout()" matTooltip="登出">
+    <mat-icon>logout</mat-icon>
+  </button>
+  }
   <!-- <button matTooltip="分享" mat-icon-button>
     <mat-icon>share</mat-icon>
   </button> -->
@@ -29,9 +39,15 @@
   <mat-drawer #drawer mode="side" class="sidenav">
     <mat-toolbar class="sidenav-header">
       <span>功能導覽</span>
-      <button matTooltip="返回首頁" mat-icon-button routerLink="/homepage" routerLinkActive="router-link-active">
+      @if(userStatus){
+      <button matTooltip="首頁" mat-icon-button routerLink="/admin-homepage" routerLinkActive="router-link-active">
         <mat-icon>home</mat-icon>
       </button>
+      }@else {
+      <button matTooltip="首頁" mat-icon-button routerLink="/homepage" routerLinkActive="router-link-active">
+        <mat-icon>home</mat-icon>
+      </button>
+      }
       <button matTooltip="縮小導覽欄" mat-icon-button class="toolbar-icon close-sidenav-icon" (click)="drawer.close()">
         <mat-icon>zoom_in_map</mat-icon>
       </button>
@@ -45,12 +61,12 @@
         <mat-icon>list</mat-icon>
         <span>問卷清單</span>
       </a>
-    } @else {
+      } @else {
       <a mat-list-item routerLink="/homepage">
         <mat-icon>list</mat-icon>
         <span>問卷清單</span>
       </a>
-    }
+      }
       @if(userStatus){
       <a mat-list-item routerLink="/create-survey">
         <mat-icon>add</mat-icon>

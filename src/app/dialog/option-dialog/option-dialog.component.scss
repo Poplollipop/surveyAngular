@@ -1,3 +1,25 @@
+mat-dialog-title {
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  color: #212121;
+  letter-spacing: 0.8px;
+  line-height: 1.4;
+}
+
+.edit-status {
+  color: red;
+}
+
+.edit-info {
+  color: red;
+  font-size: 16px;
+  margin-top: 8px;
+  margin-left: 30px;
+}
+
+
+
 // 問題區域
 .question-section {
   margin-bottom: 20px;
