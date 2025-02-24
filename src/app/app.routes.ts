@@ -5,7 +5,7 @@ import { CreateSurveyComponent } from './pages/admin/create-survey/create-survey
 import { MemberPageComponent } from './pages/user/member-page/member-page.component';
 import { SurveyPageComponent } from './pages/user/survey-page/survey-page.component';
 import { AdminHomepageComponent } from './pages/admin/admin-homepage/admin-homepage.component';
-import { NotFoundComponent } from './pages/notfound/not-found/not-found.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { StatisticsComponent } from './pages/admin/statistics/statistics.component';
 // import { SearchComponent } from './component/search/search.component';
 

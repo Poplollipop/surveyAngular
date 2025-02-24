@@ -70,7 +70,7 @@ export class SearchComponent {
       endDate: this.toDate,
       surveyName: this.surveyName,
     };
-    // console.log(searchFiliter);
+    console.log(searchFiliter);
     this.searchOutput.emit(searchFiliter);
   }
 

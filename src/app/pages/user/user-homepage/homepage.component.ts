@@ -1,5 +1,5 @@
 import { DateService } from './../../../@service/date.service';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -28,11 +28,16 @@ import { LoginService } from '../../../@service/login.service';
 })
 export class HomepageComponent {
 
+  // selectSurvey: boolean = false;
+  // 登入判斷
+  userStatus: boolean = false;
+
   constructor(
     private paginatorInt: MatPaginatorIntl,   // 更改 Angular paginator 語言
     private loginservice: LoginService,
     private dateservice: DateService
   ) {
+    // 更改 Angular paginator文字顯示
     {
       paginatorInt.itemsPerPageLabel = "每頁顯示資料數";
       paginatorInt.nextPageLabel = "下一頁";
@@ -51,6 +56,7 @@ export class HomepageComponent {
     }
   }
 
+  // 搜尋條件更改
   changeData(event: any) {
     const startDate = this.dateservice.changeDataFormat(new Date(event.startDate.year, event.startDate.month - 1, event.startDate.day));
     const endDate = this.dateservice.changeDataFormat(new Date(event.endDate.year, event.endDate.month - 1, event.endDate.day));
@@ -59,10 +65,10 @@ export class HomepageComponent {
       startDate: startDate,
       endDate: endDate,
     }
-    console.log(searchData);
+    console.log(endDate);
   }
-  selectSurvey: boolean = false;
-  userStatus: boolean = false;
+
+
 
   displayedColumns: string[] = ['surveyId', 'name', 'status', 'startTime', 'endTime'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);

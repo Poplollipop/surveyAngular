@@ -98,7 +98,7 @@ export class CreateSurveyComponent {
   //返回首頁
   backtohomepage() {
     // alert('確定返回主頁面？離開後將不會保存任何目前已填寫的資料！')
-    this.router.navigateByUrl('/homepage')
+    this.router.navigateByUrl('/admin-homepage')
   }
 
   /* tab共用邏輯 */
