@@ -52,7 +52,7 @@ export class LoginComponent {
   registerEmail!: string;
   registerPhone!: string;
   registerAge!: number;
-  registerData: any[] = []
+  registerData: any;
 
 
 
@@ -75,21 +75,21 @@ export class LoginComponent {
   }
 
   register() {
-    this.registerData = [
-      this.registerAccount,
-      this.registerPassword,
-      this.registerEmail,
-      this.registerPhone,
-      this.registerAge,
-    ];
+    this.registerData = {
+      registerAccount: this.registerAccount,
+      registerPassword: this.registerPassword,
+      registerEmail: this.registerEmail,
+      registerPhone: this.registerPhone,
+      registerAge: this.registerAge,
+    };
     console.log(this.registerData);
   }
 
   login() {
-    const userData = [
-      this.userAccount,
-      this.userPassword,
-    ]
+    const userData = {
+      userAccount: this.userAccount,
+      userPassword: this.userPassword,
+    }
     console.log(userData);
 
     this.loginservice.login();
