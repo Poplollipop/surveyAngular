@@ -5,7 +5,7 @@
   <button matTooltip="新增問卷" mat-icon-button routerLink="/create-survey" class="button">
     <mat-icon>add</mat-icon>
   </button>
-  <button matTooltip="刪除問卷" mat-icon-button class="button">
+  <button matTooltip="刪除問卷" mat-icon-button class="button" (click)="deleteSurvey()">
     <mat-icon>delete</mat-icon>
   </button>
 </div>
@@ -19,7 +19,7 @@
     <ng-container matColumnDef="selectSurvey">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <input type="checkbox">
+        <input [(ngModel)]="element.selected" type="checkbox">
       </td>
     </ng-container>
     }

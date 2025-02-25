@@ -48,6 +48,12 @@ export interface QuizData {
   styleUrl: './create-survey.component.scss'
 })
 export class CreateSurveyComponent {
+publishSurvey() {
+throw new Error('Method not implemented.');
+}
+saveSurvey() {
+throw new Error('Method not implemented.');
+}
 
   selectedIndex = 0;
   surveyName!: string;
@@ -169,7 +175,7 @@ export class CreateSurveyComponent {
           answerText: result.answerText,
           quizType: result.quizType,
         };
-        // console.log(newQuiz);
+        console.log(newQuiz);
 
         this.dataSource.data.push(newQuiz);
         this.dataSource._updateChangeSubscription();
@@ -209,7 +215,7 @@ export class CreateSurveyComponent {
         console.log(updateQuiz);
         this.dataSource.data.push(updateQuiz);
         this.dataSource._updateChangeSubscription();
-        // console.log(result);
+        console.log(result);
       }
     });
   }
@@ -223,6 +229,7 @@ export class CreateSurveyComponent {
   }
 
   displayedColumns: string[] = ['select', 'quizId', 'quizName', 'type', 'quizMust', 'edit'];
+  previewColumns: string[] = ['quizName', 'options', 'type', 'quizMust'];
   dataSource = new MatTableDataSource<QuizData>();
   selection = new SelectionModel<QuizData>(true, []);
 

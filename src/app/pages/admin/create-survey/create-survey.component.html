@@ -1,7 +1,7 @@
 <mat-tab-group [(selectedIndex)]="selectedIndex" mat-stretch-tabs="false" mat-align-tabs="center">
 
   <!-- 問卷起始 -->
-  <mat-tab disabled  label="問卷">
+  <mat-tab disabled label="問卷">
     <div class="tab-container">
       <div class="content">
         <!-- 問卷名稱 -->
@@ -16,8 +16,7 @@
         <span>開始時間：</span>
         <mat-form-field class="time-field">
           <mat-label>選擇起始時間</mat-label>
-          <input readonly matInput [matDatepicker]="startDate" [min]="today"
-            (dateChange)="startDate_change($event)" />
+          <input readonly matInput [matDatepicker]="startDate" [min]="today" (dateChange)="startDate_change($event)" />
           <mat-hint>年/月/日</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate>
@@ -162,11 +161,56 @@
           <input disabled="" id="age" type="text" placeholder="請輸入年紀">
         </div>
 
+
+        <!-- 問卷題目列表 -->
+        <div class="quiz-table-container">
+          <table mat-table [dataSource]="dataSource" class="quiz-table">
+
+            <!-- quizName Column -->
+            <ng-container matColumnDef="quizName">
+              <th mat-header-cell *matHeaderCellDef class="header-cell"> 問題名稱 </th>
+              <td mat-cell *matCellDef="let element" class="data-cell">
+                {{element.quizName}}
+              </td>
+            </ng-container>
+
+            <!-- Options Column -->
+            <ng-container matColumnDef="options">
+              <th mat-header-cell *matHeaderCellDef class="header-cell"> 選項 </th>
+              <td mat-cell *matCellDef="let element" class="data-cell">
+                <div class="options-list">
+                  @for (option of element.options; track $index) {
+                  <span>{{ $index + 1 }}. {{ option }}</span>
+                  }
+                </div>
+              </td>
+            </ng-container>
+
+            <!-- Type Column -->
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef class="header-cell"> 類型 </th>
+              <td mat-cell *matCellDef="let element" class="data-cell"> {{element.type}} </td>
+            </ng-container>
+
+            <!-- quizMust Column -->
+            <ng-container matColumnDef="quizMust">
+              <th mat-header-cell *matHeaderCellDef class="header-cell"> 必填 </th>
+              <td mat-cell *matCellDef="let element" class="data-cell"> {{element.quizMust ? '是' : '否'}} </td>
+            </ng-container>
+
+            <!-- Header and Data Rows -->
+            <tr mat-header-row *matHeaderRowDef="previewColumns" class="header-row"></tr>
+            <tr mat-row *matRowDef="let row; columns: previewColumns;" class="data-row"></tr>
+          </table>
+        </div>
+
+
+
       </div>
       <div class="btn">
         <button mat-button (click)="backStep()">返回</button>
-        <button mat-raised-button>僅儲存</button>
-        <button mat-flat-button>儲存並發布</button>
+        <button mat-raised-button (click)="saveSurvey()">僅儲存</button>
+        <button mat-flat-button (click)="publishSurvey()">儲存並發布</button>
       </div>
     </div>
   </mat-tab>

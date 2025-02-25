@@ -173,3 +173,62 @@ input, textarea {
 }
 
 
+/* 預覽頁問題及選項table */
+
+
+.quiz-table-container {
+  width: 100%;
+  margin: 20px 0;
+}
+
+
+.quiz-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* 固定列寬 */
+  border: 1px solid #ddd;
+}
+
+ // Table標題欄位
+.header-cell {
+  background-color: #f1f1f1;
+  font-weight: bold;
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.options-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+.data-cell {
+  padding: 12px 15px;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: 1px solid #ddd;
+}
+
+.data-row:hover {
+  background-color: #f1f1f1; /* 鼠標懸停時的高亮效果 */
+}
+
+
+.quiz-table .mat-column-quizName {
+  width: 30%;
+}
+
+.quiz-table .mat-column-options {
+  width: 40%;
+}
+
+.quiz-table .mat-column-type {
+  width: 15%;
+}
+
+.quiz-table .mat-column-quizMust {
+  width: 15%;
+}

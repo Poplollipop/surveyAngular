@@ -27,37 +27,40 @@ import { LoginService } from '../../../@service/login.service';
   styleUrl: './admin-homepage.component.scss'
 })
 export class AdminHomepageComponent implements AfterViewInit {
+
   selectSurvey: boolean = false;
   adminStatus: boolean = false;
+  selectData!: Array<any>;
+
 
   displayedColumns: string[] = ['surveyId', 'name', 'status', 'startTime', 'endTime'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-    // 更改 Angular paginator 語言
-    constructor(
-      private paginatorInt: MatPaginatorIntl,
-      private loginservice: LoginService,
-      private dateservice:DateService,
-    ) {
-      {
-        paginatorInt.itemsPerPageLabel = "每頁顯示資料數";
-        paginatorInt.nextPageLabel = "下一頁";
-        paginatorInt.previousPageLabel = "上一頁";
-        paginatorInt.lastPageLabel = "到最後一頁";
-        paginatorInt.firstPageLabel = "到第一頁";
-        paginatorInt.getRangeLabel = (page: number, pageSize: number, length: number) => {
-          length = Math.max(length, 0);
-          const startIndex = page * pageSize;
-          const endIndex =
-            startIndex < length
-              ? Math.min(startIndex + pageSize, length)
-              : startIndex + pageSize;
-          return `${endIndex} / ${length}`; // ${startIndex + 1} 的
-        }
+  // 更改 Angular paginator 語言
+  constructor(
+    private paginatorInt: MatPaginatorIntl,
+    private loginservice: LoginService,
+    private dateservice: DateService,
+  ) {
+    {
+      paginatorInt.itemsPerPageLabel = "每頁顯示資料數";
+      paginatorInt.nextPageLabel = "下一頁";
+      paginatorInt.previousPageLabel = "上一頁";
+      paginatorInt.lastPageLabel = "到最後一頁";
+      paginatorInt.firstPageLabel = "到第一頁";
+      paginatorInt.getRangeLabel = (page: number, pageSize: number, length: number) => {
+        length = Math.max(length, 0);
+        const startIndex = page * pageSize;
+        const endIndex =
+          startIndex < length
+            ? Math.min(startIndex + pageSize, length)
+            : startIndex + pageSize;
+        return `${endIndex} / ${length}`; // ${startIndex + 1} 的
       }
     }
+  }
 
   ngOnInit(): void {
     // 訂閱登入狀態
@@ -67,7 +70,7 @@ export class AdminHomepageComponent implements AfterViewInit {
       this.adminStatus = status;
     });
     // console.log(this.adminStatus);
-    if(this.adminStatus){
+    if (this.adminStatus) {
       this.displayedColumns.push('edit');
       this.displayedColumns.unshift('selectSurvey');
     }
@@ -77,8 +80,8 @@ export class AdminHomepageComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-   // 搜尋條件更改
-   changeData(event: any) {
+  // 搜尋條件更改
+  changeData(event: any) {
     const startDate = this.dateservice.changeDataFormat(new Date(event.startDate.year, event.startDate.month - 1, event.startDate.day));
     const endDate = this.dateservice.changeDataFormat(new Date(event.endDate.year, event.endDate.month - 1, event.endDate.day));
     const searchData = {
@@ -90,6 +93,12 @@ export class AdminHomepageComponent implements AfterViewInit {
   }
 
 
+  deleteSurvey() {
+    alert('問卷刪除後將無法復原！！！')
+    this.dataSource.data = this.dataSource.data.filter(element => !element.selected);
+  }
+
+
 }
 
 export interface PeriodicElement {
@@ -98,9 +107,10 @@ export interface PeriodicElement {
   status: string;
   startTime: string;
   endTime: string;
+  selected?: boolean;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+let ELEMENT_DATA: PeriodicElement[] = [
   { surveyId: 1, name: '客戶滿意度調查', status: '尚未開始', startTime: '2024-02-15 08:00', endTime: '2024-02-20 18:00' },
   { surveyId: 2, name: '產品使用反饋', status: '進行中', startTime: '2024-02-10 09:30', endTime: '2024-02-17 20:00' },
   { surveyId: 3, name: '員工工作環境調查', status: '已結束', startTime: '2024-01-05 10:00', endTime: '2024-01-12 22:00' },
