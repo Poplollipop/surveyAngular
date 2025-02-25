@@ -96,6 +96,9 @@ export class AdminHomepageComponent implements AfterViewInit {
   deleteSurvey() {
     alert('問卷刪除後將無法復原！！！')
     this.dataSource.data = this.dataSource.data.filter(element => !element.selected);
+    // filter 方法返回一個新的陣列
+    // 如果 element.selected 是 true（即該項目被選中），!element.selected 會變成 false，這樣該項目會被排除在新陣列之外。
+    // 如果 element.selected 是 false（即該項目未被選中），!element.selected 會變成 true，該項目會被保留在新陣列中。
   }
 
 
