@@ -44,7 +44,6 @@ export class AppComponent {
       this.userStatus = status;
     });
     // console.log(this.userStatus);
-
   }
 
   login() {

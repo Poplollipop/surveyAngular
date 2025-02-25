@@ -89,7 +89,7 @@ export class AdminHomepageComponent implements AfterViewInit {
       startDate: startDate,
       endDate: endDate,
     }
-    console.log(searchData);
+    // console.log(searchData);
   }
 
 

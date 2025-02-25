@@ -90,7 +90,7 @@ export class LoginComponent {
       userAccount: this.userAccount,
       userPassword: this.userPassword,
     }
-    console.log(userData);
+    // console.log(userData);
 
     this.loginservice.login();
     this.router.navigateByUrl('/admin-homepage');

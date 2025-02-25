@@ -46,7 +46,7 @@ export class EditMemberinfoDialogComponent {
 
   save() {
     this.newMemberInfo = [this.newAccount, this.newPassword, this.newMail, this.newPhone];
-    console.log(this.newMemberInfo);
+    // console.log(this.newMemberInfo);
     this.dialogRef.close();
   }
   cancel() {

@@ -181,7 +181,6 @@ export class CreateSurveyComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
       if (result) {
         if (!this.editStatus) {
           this.saveQuizArray = result;
@@ -206,11 +205,10 @@ export class CreateSurveyComponent {
 
 
   deleteOptions() {
-    console.log(123);
-
     for (let i = 0; i < this.saveQuizArray.length; i++) {
       if (this.saveQuizArray[i].checkBox) this.saveQuizArray.splice(i, 1);
     }
+    this.dataSource.data = this.saveQuizArray;
   }
 
 

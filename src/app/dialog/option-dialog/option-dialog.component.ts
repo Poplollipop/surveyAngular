@@ -61,7 +61,6 @@ export class OptionDialogComponent {
   }
 
   ngOnInit(): void {
-    console.log(this.data.saveQuizArray);
     this.saveQuizArray = this.data.saveQuizArray;
     this.editStatus = this.data.editStatus;
     this.editId = this.data.editId;
@@ -194,7 +193,6 @@ export class OptionDialogComponent {
         editData.quizMust = this.quizMust;
         this.editStatus = false;
         // this.dataSource.data = editData
-        console.log(editData);
       }
       this.dialogRef.close(this.saveQuizArray);
 
