@@ -61,19 +61,14 @@ export class OptionDialogComponent {
   }
 
   ngOnInit(): void {
+    console.log(this.data.saveQuizArray);
     this.saveQuizArray = this.data.saveQuizArray;
-    if (this.data.quizType) {
-      this.quizType = this.data.quizType;
-    } else {
-      this.quizType = 'single';
-    }
     this.editStatus = this.data.editStatus;
-    if (this.data.type) {
-      this.type = this.data.type;
-    } else {
-      this.type = '單選題';
-    }
     this.editId = this.data.editId;
+    if (!this.data.saveQuizArray) {
+      this.type = this.data.type;
+      this.quizType = this.data.quizType;
+    }
     // 初始化 data 檢視是否為編輯，如為編輯問題及選項，將值帶入
     if (this.editStatus) {
       for (let quizArray of this.saveQuizArray) {
@@ -81,6 +76,7 @@ export class OptionDialogComponent {
           this.quizName = quizArray.quizName;
           this.quizMust = quizArray.quizMust;
           this.quizType = quizArray.quizType;
+          this.type = quizArray.type
           this.quizArray = quizArray.quizArray;
         }
       }
@@ -95,10 +91,14 @@ export class OptionDialogComponent {
   resetQuizArray() {
     // 初始設定預設兩個選項
     this.quizOptionId = 1;
-    this.quizArray = [
-      { id: 0, quest: '' },
-      { id: 1, quest: '' }
-    ];
+    if (this.quizType !== 'text') {
+      this.quizArray = [
+        { id: 0, quest: '' },
+        { id: 1, quest: '' }
+      ];
+    } else {
+      this.quizArray = [];
+    }
   }
 
   removeQuiz(index: number) {
@@ -133,7 +133,6 @@ export class OptionDialogComponent {
     this.quizType = 'text';
     this.type = '簡答題'
     this.options = [];
-    this.answerText = true;
   }
 
 
@@ -172,8 +171,7 @@ export class OptionDialogComponent {
         }
       }
 
-      // 判斷不是編輯(!this.editStatus)執行新增(push)
-      // 判斷是編輯(this.editStatus)執行資料更新
+      // 判斷是否編輯否則執行新增或資料更新
       if (!this.editStatus) {
         this.saveQuizArray.push({
           quizId: this.quizId,
@@ -186,23 +184,19 @@ export class OptionDialogComponent {
         this.quizId++;
       } else {
         let editData;
-        console.log(this.saveQuizArray);
-
         for (let quest of this.saveQuizArray) {
           if (quest.quizId == this.editId) editData = quest;
         }
-        console.log(editData);
-
         editData.quizName = this.quizName;
         editData.quizType = this.quizType;
         editData.type = this.type;
         editData.quizArray = this.quizArray;
         editData.quizMust = this.quizMust;
         this.editStatus = false;
-
+        // this.dataSource.data = editData
+        console.log(editData);
       }
       this.dialogRef.close(this.saveQuizArray);
-      console.log(this.saveQuizArray);
 
     }
   }

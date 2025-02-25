@@ -56,6 +56,7 @@ export class CreateSurveyComponent {
 
   /* 第一個tab變數 */
   startDate: Date | null = null;
+  startDateSelected: boolean = false;
   today: Date = new Date();
   endDate: Date | null = null;
   endDateError: boolean = false;
@@ -106,6 +107,7 @@ export class CreateSurveyComponent {
   // 處理開始時間更改
   startDate_change(event: MatDatepickerInputEvent<Date>) {
     this.startDate = event.value;
+    this.startDateSelected = true;
     this.endDateMin = this.startDate;
     this.validate_error();
   }
@@ -179,99 +181,36 @@ export class CreateSurveyComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
       if (result) {
         if (!this.editStatus) {
           this.saveQuizArray = result;
+          this.dataSource.data = this.saveQuizArray;
         }
-        // this.editStatus = false;
-        this.pushQuizArray();
+        if (this.editStatus) {
+          this.saveQuizArray = result;
+          this.dataSource.data = this.saveQuizArray;
+          this.editStatus = false;
+        }
       }
     });
   }
 
 
-  pushQuizArray() {
-    let newQuizArray = [];
-    for (let quiz of this.saveQuizArray) {
-      let newOption = [];
-      if (quiz.quizType != 'text') {
-        for (let array of quiz.quizArray) {
-          newOption.push({
-            optionName: array.quiz,
-            code: array.id
-          })
-        }
-      }
-      newQuizArray.push({
-        quizId: quiz.quizId,
-        quizMust: quiz.quizMust,
-        quizName: quiz.quizName,
-        quizType: quiz.quizType,
-        type: quiz.type,
-        options: newOption
-      })
-    }
-    this.dataSource.data = newQuizArray;
-  }
+
 
   edit(quiz: any) {
     this.editStatus = true;
     this.showQuizDialog(quiz.quizType, quiz.quizId)
-    console.log(quiz);
-
   }
 
-  saveQuiz() {
-    if (this.quizName) {
 
-      if (this.quizType != 'text') {
-        for (let quizArray of this.quizArray) {
-          if (quizArray.quiz.length == 0) {
-            alert('選項名稱不能為空');
-            return;
-          }
-        }
-      }
+  deleteOptions() {
+    console.log(123);
 
-      // 判斷是否為編輯為新增，否則為更新
-      if (!this.editStatus) {
-        this.saveQuizArray.push({
-          quizId: this.quizId,
-          quizName: this.quizName,
-          quizMust: this.quizMust,
-          checkBox: false,
-          quizType: this.quizType,
-          type: this.type,
-          quizArray: this.quizArray
-        });
-        this.quizId++;
-      } else {
-        let editData;
-        for (let quiz of this.saveQuizArray) {
-          if (quiz.quizId == this.editId) editData = quiz;
-        }
-        editData.quizName = this.quizName;
-        editData.quizType = this.quizType;
-        editData.quizArray = this.quizArray;
-        editData.quizMust = this.quizMust;
-        editData.type = this.type;
-        console.log(editData.type);
-        console.log(editData.quizType);
-
-
-      }
-      this.pushQuizArray();
-    } else {
-      alert('問卷名稱不能為空');
-    }
-  }
-
-  delete() {
-    // 判斷如果當前選項有溝選擇選擇刪除
     for (let i = 0; i < this.saveQuizArray.length; i++) {
       if (this.saveQuizArray[i].checkBox) this.saveQuizArray.splice(i, 1);
     }
-    this.pushQuizArray();
   }
 
 
