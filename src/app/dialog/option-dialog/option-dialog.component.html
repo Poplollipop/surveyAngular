@@ -1,10 +1,10 @@
 <h2 mat-dialog-title [ngClass]="{ 'edit-status': editStatus }">
   {{ editStatus ? '編輯問題及選項' : '新增問題及選項' }} （{{ type }}）
 </h2>
-  @if(editStatus){
-  <div class="edit-info">
-   編輯中！
-  </div>
+@if(editStatus){
+<div class="edit-info">
+  編輯中！
+</div>
 }
 <mat-dialog-content>
 
@@ -31,22 +31,24 @@
 
   <!-- 問題選項 -->
   <div class="options-content">
-    @if(quizType == 'single' || quizType == 'multi'){
+    @if(quizType !== 'text'){
     <div class="options-add">
       <p>選項：</p>
-      <button matTooltip="新增選項" mat-icon-button (click)="addOptions()">
+      <button class="add-icon" matTooltip="新增選項" mat-icon-button (click)="addQuiz()">
         <mat-icon>add</mat-icon>
       </button>
     </div>
-  }
+    }
     <ol class="options-list">
-      @if (quizType == 'single' || quizType == 'multi') {
-      @for (option of options; track $index) {
+      @if (quizType !== 'text') {
+      @for (quest of quizArray; track $index) {
       <li>
-        <input placeholder="請輸入選項" [(ngModel)]="options[$index]" type="text" matInput>
-        <button matTooltip="刪除選項" (click)="deleteOptions($index)" mat-icon-button>
+        <input placeholder="請輸入選項" [(ngModel)]="quest.quest" matInput>
+        @if($index > 1){
+        <button class="remove-icon" matTooltip="刪除選項" (click)="removeQuiz($index)" mat-icon-button>
           <mat-icon>remove</mat-icon>
         </button>
+        }
       </li>
       }
       }

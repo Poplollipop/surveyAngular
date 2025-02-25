@@ -37,14 +37,18 @@ import { CommonModule } from '@angular/common';
 export class OptionDialogComponent {
 
   // 設定初始值
-  quizId: number = 0;
+  quizId = 0;
+  editId = 0;
   options: string[] = ["", ""];
-  quizMust: boolean = false;
-  quizType: string = 'single';
+  quizMust = false;
+  quizType = 'single';
   type: string = '單選題';
   answerText: boolean = false;
   quizName!: string;
-  editStatus: boolean = false;
+  quizArray!: Array<any>;
+  quizOptionId = 0;
+  editStatus = false;
+  saveQuizArray: Array<any> = [];
 
 
 
@@ -57,20 +61,57 @@ export class OptionDialogComponent {
   }
 
   ngOnInit(): void {
-    // 初始化 data 檢視是否為編輯，如為編輯問題及選項，將值帶入
-    if (this.data) {
-      this.quizId = this.data.quizId || 0;
-      this.quizName = this.data.quizName || '';
-      this.quizMust = this.data.quizMust || false;
-      this.quizType = this.data.quizType || 'single';
-      this.type = this.data.type || '單選題';
-      this.options = this.data.options || ["", ""];
-      this.answerText = this.data.answerText || false;
-      if(this.data.quizId){
-        this.editStatus = true;
-      }
-      // console.log(this.data);
+    this.saveQuizArray = this.data.saveQuizArray;
+    if (this.data.quizType) {
+      this.quizType = this.data.quizType;
+    } else {
+      this.quizType = 'single';
     }
+    this.editStatus = this.data.editStatus;
+    if (this.data.type) {
+      this.type = this.data.type;
+    } else {
+      this.type = '單選題';
+    }
+    this.editId = this.data.editId;
+    // 初始化 data 檢視是否為編輯，如為編輯問題及選項，將值帶入
+    if (this.editStatus) {
+      for (let quizArray of this.saveQuizArray) {
+        if (quizArray.quizId == this.data.editId) {
+          this.quizName = quizArray.quizName;
+          this.quizMust = quizArray.quizMust;
+          this.quizType = quizArray.quizType;
+          this.quizArray = quizArray.quizArray;
+        }
+      }
+    } else {
+      for (let quizArray of this.saveQuizArray) {
+        this.quizId = quizArray.quizId;
+      }
+      this.quizId++;
+      if (this.quizType != 'text') this.resetQuizArray();
+    }
+  }
+  resetQuizArray() {
+    // 初始設定預設兩個選項
+    this.quizOptionId = 1;
+    this.quizArray = [
+      { id: 0, quest: '' },
+      { id: 1, quest: '' }
+    ];
+  }
+
+  removeQuiz(index: number) {
+    if (this.quizArray.length > 1) {
+      this.quizArray.splice(index, 1);
+    }
+  }
+
+  addQuiz() {
+    this.quizOptionId++;
+    this.quizArray.push(
+      { id: this.quizOptionId, quest: '' }
+    );
   }
 
   // 變更問題類型為單選題
@@ -96,23 +137,15 @@ export class OptionDialogComponent {
   }
 
 
-
-  addOptions() {
-    if (this.quizType == 'single' || this.quizType == 'multi') {
-      this.options.push("");
-    }
-  }
-
   deleteOptions(index: number) {
     if (this.options.length > 2) {
       this.options.splice(index, 1);
     } else {
-      alert("至少需要兩個選項！");
+      alert("選擇題至少需要兩個選項！");
     }
   }
 
   save() {
-
     // 檢查問題名稱是否空白
     if (!this.quizName || !this.quizName.trim()) {
       alert("請填寫問題名稱！");
@@ -127,31 +160,51 @@ export class OptionDialogComponent {
     }
 
 
-    // 單選題或多選題，檢查選項是否小於兩個選項
-    if ((this.quizType == 'single' || this.quizType == 'multi') && this.options.length < 2) {
-      alert("至少需要兩個選項！");
-      return;
-    }
-
-    // 檢查每個選項是否為空
-    if (this.quizType !== 'text') {
-      for (let option of this.options) {
-        if (!option.trim()) {
-          alert("選項不能為空！");
-          return;
+    if (this.quizName) {
+      let type = this.type;
+      let quizType = this.quizType
+      if (this.quizType != 'text') {
+        for (let quizArray of this.quizArray) {
+          if (quizArray.quest.length == 0) {
+            alert('選項不能為空！');
+            return;
+          }
         }
       }
+
+      // 判斷不是編輯(!this.editStatus)執行新增(push)
+      // 判斷是編輯(this.editStatus)執行資料更新
+      if (!this.editStatus) {
+        this.saveQuizArray.push({
+          quizId: this.quizId,
+          quizName: this.quizName,
+          quizMust: this.quizMust,
+          quizType: this.quizType,
+          type: this.type,
+          quizArray: this.quizArray
+        });
+        this.quizId++;
+      } else {
+        let editData;
+        console.log(this.saveQuizArray);
+
+        for (let quest of this.saveQuizArray) {
+          if (quest.quizId == this.editId) editData = quest;
+        }
+        console.log(editData);
+
+        editData.quizName = this.quizName;
+        editData.quizType = this.quizType;
+        editData.type = this.type;
+        editData.quizArray = this.quizArray;
+        editData.quizMust = this.quizMust;
+        this.editStatus = false;
+
+      }
+      this.dialogRef.close(this.saveQuizArray);
+      console.log(this.saveQuizArray);
+
     }
-    const option = {
-      quizName: this.quizName,
-      quizMust: this.quizMust,
-      quizType: this.quizType,
-      type: this.type,
-      options: this.options,
-      answerText: this.answerText,
-    }
-    this.dialogRef.close(option);
-    // console.log(option);
   }
 
 

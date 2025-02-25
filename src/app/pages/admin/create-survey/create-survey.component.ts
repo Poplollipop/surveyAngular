@@ -18,14 +18,15 @@ import { OptionDialogComponent } from '../../../dialog/option-dialog/option-dial
 
 
 export interface QuizData {
-  options: any[];
-  answerText: any;
+  quizArray?: any[];
+  answerText?: any;
   quizName: string;
   quizId: number;
   type: string;
   quizMust: string;
   quizType: string;
 }
+
 
 
 
@@ -48,25 +49,12 @@ export interface QuizData {
   styleUrl: './create-survey.component.scss'
 })
 export class CreateSurveyComponent {
-publishSurvey() {
-throw new Error('Method not implemented.');
-}
-saveSurvey() {
-throw new Error('Method not implemented.');
-}
-
   selectedIndex = 0;
   surveyName!: string;
   surveyDescription!: string;
   endDateMin: Date | null = null;
 
-  constructor(
-    private router: Router,
-    private dateservice: DateService,
-  ) { }
-
   /* 第一個tab變數 */
-
   startDate: Date | null = null;
   today: Date = new Date();
   endDate: Date | null = null;
@@ -77,7 +65,35 @@ throw new Error('Method not implemented.');
   /* 第二個tab變數 */
   quizId: number = 0;
   editId: number = 0;
-  editStatus: boolean = false;
+  quizArray!: Array<any>;
+  saveQuizArray: Array<any> = [];
+  quizOptionId = 0;
+  editStatus = false;
+  options!: any[];
+  answerText: any;
+  quizName!: string;
+  type!: string;
+  quizMust!: string;
+  quizType!: string;
+
+  displayedColumns: string[] = ['select', 'quizId', 'quizName', 'type', 'quizMust', 'edit'];
+  previewColumns: string[] = ['quizName', 'options', 'type', 'quizMust'];
+  dataSource = new MatTableDataSource(this.saveQuizArray);
+  selection = new SelectionModel<QuizData>(true, []);
+
+
+
+  constructor(
+    private router: Router,
+    private dateservice: DateService,
+  ) { }
+
+  publishSurvey() {
+    throw new Error('Method not implemented.');
+  }
+  saveSurvey() {
+    throw new Error('Method not implemented.');
+  }
 
   ngOnInit(): void {
 
@@ -156,84 +172,107 @@ throw new Error('Method not implemented.');
   readonly dialog = inject(MatDialog);
 
 
-  showAddQuizDialog() {
+  showQuizDialog(quizType: string, editId?: number) {
     const dialogRef = this.dialog.open(OptionDialogComponent, {
-      data: {},
+      data: { type: this.type, quizType: this.quizType, saveQuizArray: this.saveQuizArray, editStatus: this.editStatus, editId },
       width: '80%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log(result);
       if (result) {
-        this.quizId++;
-        const newQuiz: QuizData = {
-          quizId: this.quizId,
-          quizName: result.quizName,
-          type: result.type,
-          quizMust: result.quizMust,
-          options: result.options,
-          answerText: result.answerText,
-          quizType: result.quizType,
-        };
-        console.log(newQuiz);
-
-        this.dataSource.data.push(newQuiz);
-        this.dataSource._updateChangeSubscription();
-      };
-    })
-
-  }
-
-  // 編輯問卷問題
-  showEditQuizDialog(element: any) {
-    console.log(element);
-
-    const dialogRef = this.dialog.open(OptionDialogComponent, {
-      width: '80%',
-      data: {
-        quizId: element.quizId,
-        quizName: element.quizName,
-        quizMust: element.quizMust,
-        quizType: element.quizType,
-        type: element.type,
-        options: element.options,
-        answerText: element.answerText,
-      }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const updateQuiz: QuizData = {
-          quizId: this.quizId,
-          quizName: result.quizName,
-          type: result.type,
-          quizMust: result.quizMust,
-          options: result.options,
-          answerText: result.answerText,
-          quizType: result.quizType,
+        if (!this.editStatus) {
+          this.saveQuizArray = result;
         }
-        console.log(updateQuiz);
-        this.dataSource.data.push(updateQuiz);
-        this.dataSource._updateChangeSubscription();
-        console.log(result);
+        // this.editStatus = false;
+        this.pushQuizArray();
       }
     });
   }
 
-  // checkbox標籤
-  checkboxLabel(row?: QuizData): string {
-    if (!row) {
-      return 'select/deselect row';
+
+  pushQuizArray() {
+    let newQuizArray = [];
+    for (let quiz of this.saveQuizArray) {
+      let newOption = [];
+      if (quiz.quizType != 'text') {
+        for (let array of quiz.quizArray) {
+          newOption.push({
+            optionName: array.quiz,
+            code: array.id
+          })
+        }
+      }
+      newQuizArray.push({
+        quizId: quiz.quizId,
+        quizMust: quiz.quizMust,
+        quizName: quiz.quizName,
+        quizType: quiz.quizType,
+        type: quiz.type,
+        options: newOption
+      })
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.quizId + 1}`;
+    this.dataSource.data = newQuizArray;
   }
 
-  displayedColumns: string[] = ['select', 'quizId', 'quizName', 'type', 'quizMust', 'edit'];
-  previewColumns: string[] = ['quizName', 'options', 'type', 'quizMust'];
-  dataSource = new MatTableDataSource<QuizData>();
-  selection = new SelectionModel<QuizData>(true, []);
+  edit(quiz: any) {
+    this.editStatus = true;
+    this.showQuizDialog(quiz.quizType, quiz.quizId)
+    console.log(quiz);
+
+  }
+
+  saveQuiz() {
+    if (this.quizName) {
+
+      if (this.quizType != 'text') {
+        for (let quizArray of this.quizArray) {
+          if (quizArray.quiz.length == 0) {
+            alert('選項名稱不能為空');
+            return;
+          }
+        }
+      }
+
+      // 判斷是否為編輯為新增，否則為更新
+      if (!this.editStatus) {
+        this.saveQuizArray.push({
+          quizId: this.quizId,
+          quizName: this.quizName,
+          quizMust: this.quizMust,
+          checkBox: false,
+          quizType: this.quizType,
+          type: this.type,
+          quizArray: this.quizArray
+        });
+        this.quizId++;
+      } else {
+        let editData;
+        for (let quiz of this.saveQuizArray) {
+          if (quiz.quizId == this.editId) editData = quiz;
+        }
+        editData.quizName = this.quizName;
+        editData.quizType = this.quizType;
+        editData.quizArray = this.quizArray;
+        editData.quizMust = this.quizMust;
+        editData.type = this.type;
+        console.log(editData.type);
+        console.log(editData.quizType);
 
 
+      }
+      this.pushQuizArray();
+    } else {
+      alert('問卷名稱不能為空');
+    }
+  }
+
+  delete() {
+    // 判斷如果當前選項有溝選擇選擇刪除
+    for (let i = 0; i < this.saveQuizArray.length; i++) {
+      if (this.saveQuizArray[i].checkBox) this.saveQuizArray.splice(i, 1);
+    }
+    this.pushQuizArray();
+  }
 
 
 }
