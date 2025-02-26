@@ -1,4 +1,55 @@
-<p>survey-page works!</p>
+<div class="container">
+  <h1>客戶滿意度調查問卷</h1>
+  <form>
+      <!-- 問題 1 -->
+      <div class="question">
+          <label for="service_quality">1. 您對我們的服務品質滿意嗎？</label>
+          <div class="rating">
+              <label><input type="radio" name="service_quality" value="非常滿意"> 非常滿意</label>
+              <label><input type="radio" name="service_quality" value="滿意"> 滿意</label>
+              <label><input type="radio" name="service_quality" value="一般"> 一般</label>
+              <label><input type="radio" name="service_quality" value="不滿意"> 不滿意</label>
+          </div>
+      </div>
+
+      <!-- 問題 2 -->
+      <div class="question">
+          <label for="product_quality">2. 您對我們的產品品質滿意嗎？</label>
+          <div class="rating">
+              <label><input type="radio" name="product_quality" value="非常滿意"> 非常滿意</label>
+              <label><input type="radio" name="product_quality" value="滿意"> 滿意</label>
+              <label><input type="radio" name="product_quality" value="一般"> 一般</label>
+              <label><input type="radio" name="product_quality" value="不滿意"> 不滿意</label>
+          </div>
+      </div>
+
+      <!-- 問題 3 -->
+      <div class="question">
+          <label for="customer_service">3. 您對我們的客服支援滿意嗎？</label>
+          <div class="rating">
+              <label><input type="radio" name="customer_service" value="非常滿意"> 非常滿意</label>
+              <label><input type="radio" name="customer_service" value="滿意"> 滿意</label>
+              <label><input type="radio" name="customer_service" value="一般"> 一般</label>
+              <label><input type="radio" name="customer_service" value="不滿意"> 不滿意</label>
+          </div>
+      </div>
+
+      <!-- 問題 4 -->
+      <div class="question">
+          <label for="overall_satisfaction">4. 您對整體體驗的滿意度如何？</label>
+          <div class="rating">
+              <label><input type="radio" name="overall_satisfaction" value="非常滿意"> 非常滿意</label>
+              <label><input type="radio" name="overall_satisfaction" value="滿意"> 滿意</label>
+              <label><input type="radio" name="overall_satisfaction" value="一般"> 一般</label>
+              <label><input type="radio" name="overall_satisfaction" value="不滿意"> 不滿意</label>
+          </div>
+      </div>
+
+      <!-- 提交按鈕 -->
+      <button type="submit" class="submit-btn">提交調查</button>
+  </form>
+</div>
+
 
 @if(userStatus){
 <button mat-flat-button (click)="toStatistics()">統計頁</button>

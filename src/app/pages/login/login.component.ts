@@ -82,6 +82,7 @@ export class LoginComponent {
       registerPhone: this.registerPhone,
       registerAge: this.registerAge,
     };
+    this.router.navigateByUrl('/homepage');
     console.log(this.registerData);
   }
 
