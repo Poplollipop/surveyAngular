@@ -1,25 +1,60 @@
+/* 整體容器樣式 */
 .container {
-  width: 80%;
-  margin: 0 auto;
+  width: 60%; /* 調整容器寬度 */
+  margin: 0 auto; /* 使容器居中 */
   padding: 20px;
-  background-color: white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 40px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  margin-top: 2%;
 }
-h1 {
-  text-align: center;
+
+
+h5 {
+  font-size: 16px;
   color: #333;
 }
-.question {
-  margin-bottom: 15px;
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000; /* 顏色可以根據需求調整 */
 }
+
+/* 問卷描述樣式 */
+.container div span {
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* 標籤與輸入框樣式 */
 label {
   font-size: 16px;
-  margin-bottom: 5px;
-  display: block;
-  color: #333;
-}
-.rating input {
+  font-weight: bold;
   margin-right: 10px;
+}
+
+input, textarea {
+  font-size: 14px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+}
+
+
+/* 針對問題標題樣式 */
+h5 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: normal;
+}
+
+textarea {
+  height: 100px; /* 調整textarea高度 */
+  resize: vertical; /* 允許垂直調整大小 */
 }
 

@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class SessionService {
 
-  answerSurveyData!: string;
+  answerSurveyData: any;
 
   constructor() { }
 }
