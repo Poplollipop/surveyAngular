@@ -117,21 +117,27 @@ export class OptionDialogComponent {
   setSingle() {
     this.quizType = 'single';
     this.type = '單選題'
-    this.options = ["", ""];
+    this.quizArray = [
+      { id: 0, quest: '' },
+      { id: 1, quest: '' }
+    ];
   }
 
   // 變更問題類型為多選題
   setMulti() {
     this.quizType = 'multi';
     this.type = '多選題'
-    this.options = ["", ""];
+    this.quizArray = [
+      { id: 0, quest: '' },
+      { id: 1, quest: '' }
+    ];
   }
 
   // 變更問題類型為簡答題
   setText() {
     this.quizType = 'text';
     this.type = '簡答題'
-    this.options = [];
+    this.quizArray = [];
   }
 
 
@@ -195,6 +201,7 @@ export class OptionDialogComponent {
         // this.dataSource.data = editData
       }
       this.dialogRef.close(this.saveQuizArray);
+      console.log(this.saveQuizArray);
 
     }
   }

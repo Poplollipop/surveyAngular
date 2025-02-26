@@ -206,9 +206,15 @@ export class CreateSurveyComponent {
 
   deleteOptions() {
     for (let i = 0; i < this.saveQuizArray.length; i++) {
-      if (this.saveQuizArray[i].checkBox) this.saveQuizArray.splice(i, 1);
+      if (this.saveQuizArray[i].checkBox) {
+        this.saveQuizArray.splice(i, 1)
+        this.saveQuizArray[i].quizId = i + 1;
+      };
     }
+
     this.dataSource.data = this.saveQuizArray;
+    console.log(this.dataSource.data);
+
   }
 
 
