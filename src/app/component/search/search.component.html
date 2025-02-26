@@ -1,79 +1,49 @@
 <div class="container">
- <div class="name-search">
-  <span>問卷名稱：</span>
-  <input [(ngModel)]="surveyName" class="name-input" type="text">
- </div>
- <div class="date-search">
-  <span class="date-content">統計時間：</span>
-  <form class="row row-cols-sm-auto">
-    <div class="col-12">
-      <div class="dp-hidden position-absolute">
-        <div class="input-group">
-          <input
-            name="datepicker"
-            class="form-control"
-            ngbDatepicker
-            #datepicker="ngbDatepicker"
-            [autoClose]="'outside'"
-            (dateSelect)="onDateSelection($event)"
-            [displayMonths]="2"
-            [dayTemplate]="t"
-            outsideDays="hidden"
-            [startDate]="fromDate!"
-            tabindex="-1"
-          />
-          <ng-template #t let-date let-focused="focused">
-            <span
-              class="custom-day"
-              [class.focused]="focused"
-              [class.range]="isRange(date)"
-              [class.faded]="isHovered(date) || isInside(date)"
-              (mouseenter)="hoveredDate = date"
-              (mouseleave)="hoveredDate = null"
-            >
-              {{ date.day }}
-            </span>
-          </ng-template>
+  <div class="content">
+    <div class="name-search">
+      <span>問卷名稱：</span>
+      <input [(ngModel)]="surveyName" class="name-input" type="text">
+    </div>
+    <div class="date-search">
+      <span class="date-content">統計時間：</span>
+      <form class="row row-cols-sm-auto">
+        <div class="col-12">
+          <div class="dp-hidden position-absolute">
+            <div class="input-group">
+              <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                [autoClose]="'outside'" (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                outsideDays="hidden" [startDate]="fromDate!" tabindex="-1" />
+              <ng-template #t let-date let-focused="focused">
+                <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                  [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                  (mouseleave)="hoveredDate = null">
+                  {{ date.day }}
+                </span>
+              </ng-template>
+            </div>
+          </div>
+          <div class="input-group">
+            <input readonly #dpFromDate class="form-control" placeholder="年/月/日" name="dpFromDate"
+              [value]="formatter.format(fromDate)" (input)="fromDate = validateInput(fromDate, dpFromDate.value)" />
+            <button class="btn" matTooltip="選擇日期" mat-icon-button (click)="datepicker.toggle()" type="button">
+              <mat-icon>calendar_month</mat-icon>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="input-group">
-        <input
-          readonly
-          #dpFromDate
-          class="form-control"
-          placeholder="年/月/日"
-          name="dpFromDate"
-          [value]="formatter.format(fromDate)"
-          (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
-        />
-        <button class="btn" matTooltip="選擇日期" mat-icon-button (click)="datepicker.toggle()" type="button">
-          <mat-icon>calendar_month</mat-icon>
-        </button>
-      </div>
+
+        <span class="date-content">到</span>
+
+        <div class="col-12">
+          <div class="input-group">
+            <input readonly #dpToDate class="form-control" placeholder="年/月/日" name="dpToDate"
+              [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)" />
+            <!-- <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>  -->
+          </div>
+        </div>
+      </form>
+      <button class="search-btn" matTooltip="搜尋" mat-icon-button (click)="search()">
+        <mat-icon>search</mat-icon>
+      </button>
     </div>
-
-    <span class="date-content">到</span>
-
-    <div class="col-12">
-      <div class="input-group">
-        <input
-          readonly
-          #dpToDate
-          class="form-control"
-          placeholder="年/月/日"
-          name="dpToDate"
-          [value]="formatter.format(toDate)"
-          (input)="toDate = validateInput(toDate, dpToDate.value)"
-        />
-        <!-- <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>  -->
-      </div>
-    </div>
-  </form>
-  <button class="search-btn" matTooltip="搜尋" mat-icon-button (click)="search()">
-    <mat-icon>search</mat-icon>
-  </button>
- </div>
-
+  </div>
 </div>
-
-

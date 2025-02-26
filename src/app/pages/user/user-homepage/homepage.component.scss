@@ -1,11 +1,4 @@
-.button-container {
-  padding-bottom: 16px;
-}
 
-.button {
-  margin-top: 10px;
-  margin-left: 30px;
-}
 
 .table-font {
   text-align: center;
@@ -37,9 +30,21 @@ td {
 
 }
 
+
 .survey-content tr:hover {
-  background-color: rgba(224, 200, 171, 0.4); // 整行懸停背景顏色
+  background-color: rgba(224, 200, 171, 0.4) !important; // 滑鼠懸移時背景顏色
 }
+
+  // 更改表單偶數行顏色
+  .survey-content table tr:nth-child(even) {
+    background-color: rgba(214, 209, 203, 0.555);
+  }
+
+.button {
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
 
 mat-paginator{
   border: 2px #9A6852 double;
