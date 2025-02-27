@@ -57,24 +57,24 @@
 
     <mat-nav-list>
       @if(userStatus){
-      <a mat-list-item routerLink="/admin-homepage">
+      <a mat-list-item (click)="toAdminHomepage()">
         <mat-icon>list</mat-icon>
         <span>問卷清單</span>
       </a>
       } @else {
-      <a mat-list-item routerLink="/homepage">
+      <a mat-list-item (click)="toHomepage()">
         <mat-icon>list</mat-icon>
         <span>問卷清單</span>
       </a>
       }
       @if(userStatus){
-      <a mat-list-item routerLink="/create-survey">
+      <a mat-list-item (click)="toCreateSurvey()">
         <mat-icon>add</mat-icon>
         <span>創建問卷</span>
       </a>
       }
       @if(userStatus){
-      <a mat-list-item routerLink="/member-page">
+      <a mat-list-item  (click)="toMemberInfo()">
         <mat-icon>person</mat-icon>
         <span>會員中心</span>
       </a>

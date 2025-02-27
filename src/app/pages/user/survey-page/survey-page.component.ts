@@ -113,7 +113,7 @@ export class SurveyPageComponent {
   startDate!: string;
   endDate!: string;
   surveyDecription!: string;
-  questArray: Array<any> = [];
+  quizArray: Array<any> = [];
 
   constructor(
     private router: Router,
@@ -146,16 +146,16 @@ export class SurveyPageComponent {
       this.userPhone = this.sessionservice.answerSurveyData.userPhone;
       this.userEmail = this.sessionservice.answerSurveyData.userEmail;
       this.userAge = this.sessionservice.answerSurveyData.userAge;
-      this.questArray = this.sessionservice.answerSurveyData.questArray;
+      this.quizArray = this.sessionservice.answerSurveyData.quizArray;
     }
   }
 
   tidyQuizArray() {
     for (let array of this.survey.quizArray) {
-      this.questArray.push({ ...array, answer: '', radioAnswer: '' });
+      this.quizArray.push({ ...array, answer: '', radioAnswer: '' });
     }
 
-    for (let newArray of this.questArray) {
+    for (let newArray of this.quizArray) {
       let options = [];
       for (let option of newArray.options) {
         options.push({ ...option, boxBoolean: false });
@@ -180,10 +180,10 @@ export class SurveyPageComponent {
         userPhone: this.userPhone,
         userEmail: this.userName,
         userAge: this.userAge,
-        quizArray: this.questArray,
+        quizArray: this.quizArray,
       }
     }
-    this.router.navigateByUrl('/preivew-page')
+    this.router.navigateByUrl('/preview-page')
   }
 
   checkMust(): boolean {
@@ -192,7 +192,7 @@ export class SurveyPageComponent {
       return false;
     };
 
-    for (let quiz of this.questArray) {
+    for (let quiz of this.quizArray) {
       if (quiz.quizMust) {
         if (quiz.quizType == 'multi') {
           let check = false;
@@ -224,6 +224,7 @@ export class SurveyPageComponent {
   }
 
   backHomepage() {
+    this.sessionservice.answerSurveyData = null;
     if (this.userStatus) {
       this.router.navigateByUrl('/admin-homepage');
     }

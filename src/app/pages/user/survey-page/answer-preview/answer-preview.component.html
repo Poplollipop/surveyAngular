@@ -1,1 +1,76 @@
-<p>answer-preview works!</p>
+<div class="container">
+  <h5>問卷時間： {{ answerData.startDate }} ~ {{ answerData.endDate }}</h5>
+  <h2> {{ answerData.surveyTitle }}</h2>
+  <div>
+    <span>{{ answerData.surveyDecription }}</span>
+  </div>
+  <div>
+    <label>姓名：</label>
+    <span>{{answerData.userName}}</span>
+  </div><br>
+  <div>
+    <label>手機：</label>
+    <span>{{answerData.userPhone}}</span>
+  </div><br>
+  <div>
+    <label>信箱：</label>
+    <span>{{answerData.userEmail}}</span>
+
+  </div><br>
+  <div>
+    <label>年齡：</label>
+    <span>{{answerData.userAge}}</span>
+  </div>
+
+  <ol>
+    @for (answer of answerData.quizArray; track $index) {
+    <li>
+      <h5>
+        {{ answer.quizName }}
+        @if (answer.quizMust) {
+        <span style="color: red;">*</span>
+        }
+      </h5>
+    </li>
+
+    @if (answer.quizType == 'multi') {
+    <ol>
+      @for (option of answer.options; track $index) {
+      @if (option.boxBoolean) {
+      <li>
+        <div>
+          <span>{{ option.optionName }}</span>
+        </div><br>
+      </li>
+      }
+      }
+    </ol>
+    }
+
+    @if (answer.quizType == 'single') {
+    @if (answer.radioAnswer) {
+    @for (option of answer.options; track $index) {
+    @if (answer.radioAnswer == option.code) {
+    <span>{{ option.optionName }}</span>
+    <br>
+    }
+    }
+    } @else {
+    <span>無</span>
+    }
+    }
+
+    @if (answer.quizType == 'text') {
+    @if (answer.answer) {
+    <h4>{{answer.answer}}</h4>
+    } @else {
+    <span>無</span>
+    }
+    }
+    }
+  </ol>
+  <div class="btn-area">
+    <button mat-stroked-button (click)="backSurveypage()">返回修改</button>
+    <button mat-flat-button (click)="submit()">送出</button>
+  </div>
+</div>>

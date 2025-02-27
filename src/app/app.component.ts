@@ -1,3 +1,4 @@
+import { SessionService } from './@service/session.service';
 import { LoginService } from './@service/login.service';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
@@ -36,6 +37,7 @@ export class AppComponent {
   constructor(
     private router: Router,
     private loginservice: LoginService,
+    private sessionservice:SessionService,
   ) { }
 
   ngOnInit(): void {
@@ -49,11 +51,33 @@ export class AppComponent {
   login() {
     // this.loginservice.login();
     this.router.navigateByUrl('/login');
+    this.sessionservice.answerSurveyData = null;
   }
 
   logout() {
     this.loginservice.logout();
     this.router.navigateByUrl('/homepage');
+    this.sessionservice.answerSurveyData = null;
+  }
+
+  toHomepage(){
+    this.router.navigateByUrl('/homepage');
+    this.sessionservice.answerSurveyData = null;
+  }
+
+  toAdminHomepage(){
+    this.router.navigateByUrl('/admin-homepage');
+    this.sessionservice.answerSurveyData = null;
+  }
+
+  toCreateSurvey(){
+    this.router.navigateByUrl('/create-survey');
+    this.sessionservice.answerSurveyData = null;
+  }
+
+  toMemberInfo(){
+    this.router.navigateByUrl('/member-page');
+    this.sessionservice.answerSurveyData = null;
   }
 
 }
