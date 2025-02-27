@@ -127,8 +127,10 @@ export class CreateSurveyComponent {
 
   //返回首頁
   backtohomepage() {
-    // alert('確定返回主頁面？離開後將不會保存任何目前已填寫的資料！')
-    this.router.navigateByUrl('/admin-homepage')
+    const confirmed = confirm('確定返回主頁面？離開後將不會保存任何目前已填寫的資料！')
+    if (confirmed) {
+      this.router.navigateByUrl('/admin-homepage')
+    }
   }
 
   /* tab共用邏輯 */
@@ -205,12 +207,16 @@ export class CreateSurveyComponent {
 
 
   deleteOptions() {
-    for (let i = 0; i < this.saveQuizArray.length; i++) {
+    // 從後向前遍歷，避免有漏掉
+    for (let i = this.saveQuizArray.length - 1; i >= 0; i--) {
       if (this.saveQuizArray[i].checkBox) {
-        this.saveQuizArray.splice(i, 1)
-        this.saveQuizArray[i].quizId = i + 1;
-      };
+        this.saveQuizArray.splice(i, 1);
+      }
     }
+    // 遍歷 this.saveQuizArray 陣列找到 quizId更新
+    this.saveQuizArray.forEach((quiz, index) => {
+      quiz.quizId = index + 1;
+    });
 
     this.dataSource.data = this.saveQuizArray;
     console.log(this.dataSource.data);
