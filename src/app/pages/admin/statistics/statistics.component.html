@@ -1,4 +1,24 @@
-<div class="chart">
-<canvas id="chart"></canvas>
+<div class="container">
+  @for (quiz of survey.quizArray; track $index) {
+  @if (quiz.quizType !=='text') {
+  <div class="chart">
+    <canvas id="{{quiz.quizId}}"></canvas>
+  </div>
+  }
+  <span>題目： {{quiz.quizName}}</span>
+  @if (quiz.quizType !=='text'){
+  @for (label of quiz.labels; track $index) {
+  <h4>選項： {{quiz.labels[$index]}}</h4>
+  <span>{{ quiz.data[$index] }}</span>
+  }
+  }@else {
+  @for (data of quiz.data; track $index) {
+  <h5>{{data}}</h5>
+  }
+  }
+  }
+  <div class="btn-area">
+    <button mat-raised-button (click)="backHomepage()">返回首頁</button>
+    <button mat-flat-button (click)="backSurveypage()">返回上一頁</button>
+  </div>
 </div>
-<button mat-raised-button (click)="backHomepage()">返回</button>

@@ -10,11 +10,11 @@
   }
   <span class="spacer"></span>
   @if(userStatus){
-  <button matTooltip="首頁" mat-icon-button routerLink="/admin-homepage" routerLinkActive="router-link-active">
+  <button matTooltip="首頁" mat-icon-button (click)="toAdminHomepage()">
     <mat-icon>home</mat-icon>
   </button>
   }@else {
-  <button matTooltip="首頁" mat-icon-button routerLink="/homepage" routerLinkActive="router-link-active">
+  <button matTooltip="首頁" mat-icon-button (click)="toHomepage()">
     <mat-icon>home</mat-icon>
   </button>
   }
@@ -40,11 +40,11 @@
     <mat-toolbar class="sidenav-header">
       <span>功能導覽</span>
       @if(userStatus){
-      <button matTooltip="首頁" mat-icon-button routerLink="/admin-homepage" routerLinkActive="router-link-active">
+      <button matTooltip="首頁" mat-icon-button (click)="toAdminHomepage()">
         <mat-icon>home</mat-icon>
       </button>
       }@else {
-      <button matTooltip="首頁" mat-icon-button routerLink="/homepage" routerLinkActive="router-link-active">
+      <button matTooltip="首頁" mat-icon-button (click)="toHomepage()">
         <mat-icon>home</mat-icon>
       </button>
       }
