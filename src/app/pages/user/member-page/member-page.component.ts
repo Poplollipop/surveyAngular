@@ -19,7 +19,7 @@ import { EditMemberinfoDialogComponent } from '../../../dialog/edit-memberinfo-d
 export class MemberPageComponent {
 
   file!: File;
-  img: any;
+  img = 'blank-profile-picture.png';
 
   memberInfo = {
     memberInfo: [
@@ -51,8 +51,7 @@ export class MemberPageComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-
-      if(result){
+      if (result) {
         this.memberInfo = result
       }
     })

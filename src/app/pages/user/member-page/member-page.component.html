@@ -1,6 +1,6 @@
 <div class="member-center">
   <div class="profile-section">
-    <img class="member-icon" src="blank-profile-picture.png" alt="Profile Picture">
+    <img class="member-icon" [src]=img alt="Profile Picture">
     <div class="upload-content">
       <input type="file" class="file-upload" (change)="fileChange($event)" />
       <button mat-raised-button (click)="convert()">上傳</button>
