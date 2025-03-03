@@ -37,7 +37,7 @@ export class AnswerPreviewComponent {
     const answerData = {
 
     }
-    this.router.navigateByUrl('/homepage');
+    this.router.navigateByUrl('/thanks-reply');
   }
 
 }

@@ -8,6 +8,7 @@ import { AdminHomepageComponent } from './pages/admin/admin-homepage/admin-homep
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { StatisticsComponent } from './pages/admin/statistics/statistics.component';
 import { AnswerPreviewComponent } from './pages/user/survey-page/answer-preview/answer-preview.component';
+import { ReplyThanksComponent } from './pages/user/survey-page/reply-thanks/reply-thanks.component';
 // import { SearchComponent } from './component/search/search.component';
 
 export const routes: Routes = [
@@ -20,6 +21,8 @@ export const routes: Routes = [
   { path: 'survey-page', component: SurveyPageComponent },
   { path: 'preview-page', component: AnswerPreviewComponent },
   { path: 'member-page', component: MemberPageComponent },
+  { path: 'thanks-reply', component: ReplyThanksComponent },
+
 
     // 測試組件區域
     // { path: 'search', component: SearchComponent },

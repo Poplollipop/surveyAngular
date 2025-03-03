@@ -60,7 +60,9 @@
   </ol>
   <div class="btn-area">
     <button mat-stroked-button (click)="backHomepage()">返回首頁</button>
+    @if(!userStatus){
     <button mat-flat-button (click)="toPreviewpage()">預覽</button>
+    }
     @if(userStatus){
     <button mat-flat-button (click)="toStatistics()">統計頁</button>
     }
