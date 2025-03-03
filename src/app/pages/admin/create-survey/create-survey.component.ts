@@ -49,18 +49,18 @@ export interface QuizData {
   styleUrl: './create-survey.component.scss'
 })
 export class CreateSurveyComponent {
-  selectedIndex = 0;
+
+  /* 第一個tab變數 */
   surveyName!: string;
   surveyDescription!: string;
   endDateMin: Date | null = null;
-
-  /* 第一個tab變數 */
   startDate: Date | null = null;
   startDateSelected: boolean = false;
   today: Date = new Date();
   endDate: Date | null = null;
   endDateError: boolean = false;
-  inputStartDate: any;
+
+  inputStartDate: any; // 時間格式轉換後
   inputEndDate: any;
 
   /* 第二個tab變數 */
@@ -71,11 +71,13 @@ export class CreateSurveyComponent {
   quizOptionId = 0;
   editStatus = false;
   options!: any[];
-  answerText: any;
   quizName!: string;
   type!: string;
   quizMust!: string;
   quizType!: string;
+
+  /* 第三個tab變數 */
+  surveyData: any
 
   displayedColumns: string[] = ['select', 'quizId', 'quizName', 'type', 'quizMust', 'edit'];
   previewColumns: string[] = ['quizName', 'options', 'type', 'quizMust'];
@@ -89,17 +91,15 @@ export class CreateSurveyComponent {
     private dateservice: DateService,
   ) { }
 
-  publishSurvey() {
-    throw new Error('Method not implemented.');
-  }
-  saveSurvey() {
-    throw new Error('Method not implemented.');
-  }
+
 
   ngOnInit(): void {
 
   }
 
+
+  /* tab共用邏輯 */
+  selectedIndex = 0;
 
   /* 第一個tab邏輯 */
 
@@ -133,7 +133,6 @@ export class CreateSurveyComponent {
     }
   }
 
-  /* tab共用邏輯 */
 
 
   // 進入下一個Tab按鈕的處理方法
@@ -220,7 +219,32 @@ export class CreateSurveyComponent {
 
     this.dataSource.data = this.saveQuizArray;
     console.log(this.dataSource.data);
+  }
 
+
+  /* 第三個tab邏輯 */
+
+  publishSurvey() {
+    this.surveyData = {
+      name: this.surveyName,
+      description: this.surveyDescription,
+      startDate: this.inputStartDate,
+      endDate: this.inputEndDate,
+      quizData: this.saveQuizArray
+    };
+    // console.log(this.surveyData);
+    this.router.navigateByUrl('/admin-homepage')
+
+  }
+  saveSurvey() {
+    this.surveyData = {
+      name: this.surveyName,
+      description: this.surveyDescription,
+      startDate: this.inputStartDate,
+      endDate: this.inputEndDate,
+      quizData: this.saveQuizArray
+    };
+    this.router.navigateByUrl('/admin-homepage')
   }
 
 
