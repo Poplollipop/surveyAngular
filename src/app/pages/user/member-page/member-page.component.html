@@ -10,34 +10,36 @@
   <div class="info-section">
     <div class="member-data">
       <div>
-      <span>會員資料</span>
+        <span>會員資料</span>
         <button matTooltip="修改資料" (click)="showDialog()" mat-icon-button class="button">
           <mat-icon>edit</mat-icon>
         </button>
       </div>
       <table>
+        @for (info of memberInfo.memberInfo; track $index) {
         <tr>
           <th>帳號</th>
-          <td>example</td>
+          <td>{{info.account}}</td>
         </tr>
 
         <tr>
           <th>密碼</th>
-          <td>12345</td>
+          <td>{{info.password}}</td>
         </tr>
 
         <tr>
           <th>電子信箱</th>
-          <td>example&#64;yahoo.com</td>
+          <td>{{info.mail}}</td>
         </tr>
         <tr>
           <th>電話</th>
-          <td>0912345678</td>
+          <td>{{info.phone}}</td>
         </tr>
         <tr>
           <th>年紀</th>
-          <td>25</td>
+          <td>{{info.age}}</td>
         </tr>
+        }
       </table>
 
     </div>

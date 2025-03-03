@@ -21,20 +21,40 @@ export class MemberPageComponent {
   file!: File;
   img: any;
 
+  memberInfo = {
+    memberInfo: [
+      {
+        account: 'example',
+        password: '12345',
+        mail: 'example@yahoo.com',
+        phone: '0912345678',
+        age: '25',
+      }
+    ]
+  }
+
   constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    console.log(this.memberInfo);
+
+  }
 
   // 顯示會員資料編輯對話框
 
-    readonly dialog = inject(MatDialog);
+  readonly dialog = inject(MatDialog);
 
-showDialog() {
+  showDialog() {
     const dialogRef = this.dialog.open(EditMemberinfoDialogComponent, {
       data: {},
       width: '80%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // console.log(result);
+
+      if(result){
+        this.memberInfo = result
+      }
     })
   }
 

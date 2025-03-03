@@ -37,18 +37,35 @@ export class EditMemberinfoDialogComponent {
   readonly dialogRef = inject(MatDialogRef<EditMemberinfoDialogComponent>);
   readonly data = inject<any>(MAT_DIALOG_DATA);
 
+  ngOnInit(): void {
+
+  }
+
+
   // 會員資料修正
   newAccount!: string;
   newPassword!: string;
   newMail!: string;
   newPhone!: string;
-  newMemberInfo: string[] = []
 
   save() {
-    this.newMemberInfo = [this.newAccount, this.newPassword, this.newMail, this.newPhone];
-    // console.log(this.newMemberInfo);
-    this.dialogRef.close();
+    const newMemberInfo = {
+      memberInfo:
+        [
+          {
+          account: this.newAccount,
+          password: this.newPassword,
+          mail: this.newMail,
+          phone: this.newPhone,
+          age: '25',
+        },
+
+        ],
+    }
+    console.log(newMemberInfo);
+    this.dialogRef.close(newMemberInfo);
   }
+
   cancel() {
     this.dialogRef.close();
   }
