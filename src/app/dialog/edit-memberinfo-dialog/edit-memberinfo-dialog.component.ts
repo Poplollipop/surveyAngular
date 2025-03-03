@@ -41,6 +41,7 @@ export class EditMemberinfoDialogComponent {
 
   }
 
+  passwordDisplayed = false;
 
   // 會員資料修正
   newAccount!: string;
@@ -62,12 +63,20 @@ export class EditMemberinfoDialogComponent {
 
         ],
     }
-    console.log(newMemberInfo);
+    // console.log(newMemberInfo);
     this.dialogRef.close(newMemberInfo);
   }
 
   cancel() {
     this.dialogRef.close();
+  }
+
+  showPassword() {
+    this.passwordDisplayed = true;
+  }
+
+  hidePassword(){
+    this.passwordDisplayed = false;
   }
 
 

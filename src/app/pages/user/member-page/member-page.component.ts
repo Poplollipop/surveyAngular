@@ -20,6 +20,7 @@ export class MemberPageComponent {
 
   file!: File;
   img = 'blank-profile-picture.png';
+  passwordDisplayed = false;
 
   memberInfo = {
     memberInfo: [
@@ -55,6 +56,14 @@ export class MemberPageComponent {
         this.memberInfo = result
       }
     })
+  }
+
+  showPassword() {
+    this.passwordDisplayed = true;
+  }
+
+  hidePassword(){
+    this.passwordDisplayed = false;
   }
 
   // 返回首頁

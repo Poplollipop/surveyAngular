@@ -23,8 +23,24 @@
         </tr>
 
         <tr>
-          <th>密碼</th>
+          <th>密碼
+            @if (!passwordDisplayed){
+            <button (click)="showPassword()" mat-icon-button matTooltip="顯示密碼">
+              <mat-icon>
+                visibility
+              </mat-icon>
+            </button>
+          } @else {
+            <button (click)="hidePassword()" mat-icon-button matTooltip="隱藏密碼">
+              <mat-icon>
+                visibility_off
+              </mat-icon>
+            </button>
+          }
+          </th>
+          @if (passwordDisplayed) {
           <td>{{info.password}}</td>
+          }
         </tr>
 
         <tr>

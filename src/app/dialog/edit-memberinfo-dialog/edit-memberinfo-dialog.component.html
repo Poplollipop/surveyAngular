@@ -12,7 +12,22 @@
 
     <div class="field">
       <label>舊密碼：</label>
+      @if (!passwordDisplayed){
+      <button (click)="showPassword()" mat-icon-button matTooltip="顯示密碼">
+        <mat-icon>
+          visibility
+        </mat-icon>
+      </button>
+      } @else {
+      <button (click)="hidePassword()" mat-icon-button matTooltip="隱藏密碼">
+        <mat-icon>
+          visibility_off
+        </mat-icon>
+      </button>
+      }
+      @if (passwordDisplayed){
       <input type="text" disabled placeholder="example">
+      }
     </div>
     <div class="field">
       <label>新密碼：</label>
