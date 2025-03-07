@@ -1,6 +1,6 @@
 import { DateService } from './../../../@service/date.service';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -40,6 +40,7 @@ export class AdminHomepageComponent implements AfterViewInit {
 
   // 更改 Angular paginator 語言
   constructor(
+    private router: Router,
     private paginatorInt: MatPaginatorIntl,
     private loginservice: LoginService,
     private dateservice: DateService,
@@ -72,6 +73,7 @@ export class AdminHomepageComponent implements AfterViewInit {
     // console.log(this.adminStatus);
     if (this.adminStatus) {
       this.displayedColumns.push('edit');
+      this.displayedColumns.push('statistics');
       this.displayedColumns.unshift('selectSurvey');
     }
   }
@@ -103,6 +105,10 @@ export class AdminHomepageComponent implements AfterViewInit {
     // 如果 element.selected 是 false（即該項目未被選中），!element.selected 會變成 true，該項目會被保留在新陣列中。
   }
 
+
+  toStatisticspage() {
+    this.router.navigateByUrl('/statistics')
+  }
 
 }
 
