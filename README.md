@@ -2,6 +2,7 @@
 
 ## 專案簡介
 這是一個基於 Angular 的動態問卷管理系統前端，提供問卷創建、展示、提交等功能。使用者可以輕鬆地創建和管理問卷，並根據需求發送給目標群體進行填寫。
+![image](https://github.com/Poplollipop/surveyAngular/blob/main/demo.png)
 
 ## 技術
 - **前端**: Angular
